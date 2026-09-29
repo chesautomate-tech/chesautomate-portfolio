@@ -33,7 +33,7 @@ import '@/dashboard.css';
 
 type View = 'home' | 'projects' | 'services' | 'credentials' | 'about' | 'contact';
 
-const emailComposeUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=chesautomate@gmail.com&su=Portfolio%20Inquiry';
+const emailUrl = 'mailto:chesautomate@gmail.com?subject=Portfolio%20Inquiry';
 const whatsappUrl = 'https://wa.me/639125033533?text=Hi%20Chester%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20an%20automation%20project.';
 
 const navigation: { id: View; label: string; icon: typeof Home }[] = [
@@ -161,7 +161,7 @@ export default function Index() {
         </div>
         <div className="profile-location"><MapPin size={16} /> Bohol, Philippines · Remote</div>
         <div className="profile-socials" aria-label="Professional profiles">
-          <a href={emailComposeUrl} target="_blank" rel="noreferrer" aria-label="Email Chester using Gmail"><Mail /></a>
+          <a href={emailUrl} aria-label="Email Chester"><Mail /></a>
           <a href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Message Chester on WhatsApp"><MessageCircle /></a>
           <a href="https://www.linkedin.com/in/chester-wapanio-79130138b" target="_blank" rel="noreferrer" aria-label="LinkedIn profile"><Linkedin /></a>
           <a href="https://www.onlinejobs.ph/jobseekers/info/3858644" target="_blank" rel="noreferrer" aria-label="OnlineJobs profile"><BriefcaseBusiness /></a>
@@ -247,5 +247,5 @@ function AboutView({ navigate }: { navigate: (view: View) => void }) {
 }
 
 function ContactView() {
-  return <div className="view-shell contact-view"><PageHeading eyebrow="CONTACT" title="Let’s make the workflow clearer." text="Tell me what you are working on, where the process gets repetitive, or how I could contribute to your team." /><div className="contact-grid"><a href={emailComposeUrl} target="_blank" rel="noreferrer"><span className="contact-icon"><Mail /></span><div><small>EMAIL</small><h3>chesautomate@gmail.com</h3><p>Open a ready-to-send project inquiry in Gmail.</p></div><ExternalLink /></a><a href={whatsappUrl} target="_blank" rel="noreferrer"><span className="contact-icon"><MessageCircle /></span><div><small>WHATSAPP</small><h3>+63 912 503 3533</h3><p>Start a direct conversation about your workflow.</p></div><ExternalLink /></a><a href="https://www.linkedin.com/in/chester-wapanio-79130138b" target="_blank" rel="noreferrer"><span className="contact-icon"><Linkedin /></span><div><small>LINKEDIN</small><h3>Chester Wapanio</h3><p>Connect and view my professional profile.</p></div><ExternalLink /></a><a href="https://www.onlinejobs.ph/jobseekers/info/3858644" target="_blank" rel="noreferrer"><span className="contact-icon"><BriefcaseBusiness /></span><div><small>ONLINEJOBS.PH</small><h3>View my jobseeker profile</h3><p>Skills, availability, and work information.</p></div><ExternalLink /></a></div><div className="availability-card"><span className="availability-dot" /><div><strong>Open to freelance projects and team opportunities</strong><p>Based in the Philippines and available for remote collaboration.</p></div></div></div>;
+  return <div className="view-shell contact-view"><PageHeading eyebrow="CONTACT" title="Let’s make the workflow clearer." text="Tell me what you are working on, where the process gets repetitive, or how I could contribute to your team." /><div className="contact-grid"><a href={emailUrl}><span className="contact-icon"><Mail /></span><div><small>EMAIL</small><h3>chesautomate@gmail.com</h3><p>Write from your preferred email app.</p></div><ExternalLink /></a><a href={whatsappUrl} target="_blank" rel="noreferrer"><span className="contact-icon"><MessageCircle /></span><div><small>WHATSAPP</small><h3>+63 912 503 3533</h3><p>Start a direct conversation about your workflow.</p></div><ExternalLink /></a><a href="https://www.linkedin.com/in/chester-wapanio-79130138b" target="_blank" rel="noreferrer"><span className="contact-icon"><Linkedin /></span><div><small>LINKEDIN</small><h3>Chester Wapanio</h3><p>Connect and view my professional profile.</p></div><ExternalLink /></a><a href="https://www.onlinejobs.ph/jobseekers/info/3858644" target="_blank" rel="noreferrer"><span className="contact-icon"><BriefcaseBusiness /></span><div><small>ONLINEJOBS.PH</small><h3>View my jobseeker profile</h3><p>Skills, availability, and work information.</p></div><ExternalLink /></a></div><div className="availability-card"><span className="availability-dot" /><div><strong>Open to freelance projects and team opportunities</strong><p>Based in the Philippines and available for remote collaboration.</p></div></div></div>;
 }
