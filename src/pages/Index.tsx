@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
-  Award, Bot, BriefcaseBusiness, ChevronRight, CircleUserRound, ExternalLink,
+  Award, Bot, BriefcaseBusiness, Check, ChevronRight, CircleUserRound, Copy, ExternalLink,
   FolderKanban, Home, Layers3, Linkedin, Mail, MapPin, Menu, MessageCircle, Network,
   Puzzle, Sparkles, Workflow, X,
 } from 'lucide-react';
@@ -33,7 +33,9 @@ import '@/dashboard.css';
 
 type View = 'home' | 'projects' | 'services' | 'credentials' | 'about' | 'contact';
 
-const emailUrl = 'mailto:chesautomate@gmail.com?subject=Portfolio%20Inquiry';
+const emailAddress = 'chesautomate@gmail.com';
+const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=chesautomate@gmail.com&su=Portfolio%20Inquiry';
+const outlookUrl = 'https://outlook.office.com/mail/deeplink/compose?to=chesautomate@gmail.com&subject=Portfolio%20Inquiry';
 const whatsappUrl = 'https://wa.me/639125033533?text=Hi%20Chester%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20an%20automation%20project.';
 
 const navigation: { id: View; label: string; icon: typeof Home }[] = [
@@ -120,6 +122,7 @@ export default function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedCertificate, setSelectedCertificate] = useState<(typeof certificates)[number] | null>(null);
+  const [emailDialogOpen, setEmailDialogOpen] = useState(false);
   const [platform, setPlatform] = useState<'All' | Platform>('All');
 
   useEffect(() => {
@@ -161,7 +164,7 @@ export default function Index() {
         </div>
         <div className="profile-location"><MapPin size={16} /> Bohol, Philippines · Remote</div>
         <div className="profile-socials" aria-label="Professional profiles">
-          <a href={emailUrl} aria-label="Email Chester"><Mail /></a>
+          <button type="button" onClick={() => setEmailDialogOpen(true)} aria-label="Email Chester"><Mail /></button>
           <a href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Message Chester on WhatsApp"><MessageCircle /></a>
           <a href="https://www.linkedin.com/in/chester-wapanio-79130138b" target="_blank" rel="noreferrer" aria-label="LinkedIn profile"><Linkedin /></a>
           <a href="https://www.onlinejobs.ph/jobseekers/info/3858644" target="_blank" rel="noreferrer" aria-label="OnlineJobs profile"><BriefcaseBusiness /></a>
@@ -179,13 +182,14 @@ export default function Index() {
         {view === 'services' && <ServicesView navigate={navigate} />}
         {view === 'credentials' && <CredentialsView onCertificate={setSelectedCertificate} />}
         {view === 'about' && <AboutView navigate={navigate} />}
-        {view === 'contact' && <ContactView />}
+        {view === 'contact' && <ContactView onEmail={() => setEmailDialogOpen(true)} />}
       </main>
 
       <ProjectDialog project={selectedProject} onClose={() => setSelectedProject(null)} />
       <Dialog open={!!selectedCertificate} onOpenChange={(open) => { if (!open) setSelectedCertificate(null); }}>
         <DialogContent className="dashboard-certificate-dialog">{selectedCertificate && <><DialogTitle>{selectedCertificate.title}</DialogTitle><DialogDescription>{selectedCertificate.platform} · Training certificate</DialogDescription><img src={selectedCertificate.image} alt={`${selectedCertificate.title} certificate`} /><a href={selectedCertificate.image} target="_blank" rel="noreferrer">Open full-resolution certificate <ExternalLink size={15} /></a></>}</DialogContent>
       </Dialog>
+      <EmailDialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen} />
     </div>
   );
 }
@@ -246,6 +250,32 @@ function AboutView({ navigate }: { navigate: (view: View) => void }) {
   return <div className="view-shell"><PageHeading eyebrow="ABOUT" title="Automation designed around real business needs." text="I build connected CRM and AI workflows that reduce repetitive work, strengthen follow-up, and keep information moving between the tools your business relies on." /><section className="about-panel"><div className="about-copy"><h3>I turn disconnected processes into clear, reliable automation systems.</h3><p>I’m Chester Wapanio, a CRM & AI Automation Specialist based in Bohol, Philippines. Using GoHighLevel, n8n, Make, and Zapier, I design practical workflows for lead management, CRM updates, AI-assisted routing, follow-up, and cross-platform data movement.</p><p>Every project in this portfolio is a hands-on demonstration built with sample data. The work shows how I map a process, structure the workflow logic, anticipate failure points, and create clear handoffs when human judgment is needed.</p><div className="about-values"><span><Workflow /> Business-focused workflow design</span><span><Puzzle /> Safeguards and human handoffs</span><span><Sparkles /> Practical, continuous improvement</span></div></div><div className="about-profile-card"><img src={profile} alt="Chester Wapanio" /><strong>Chester Wapanio</strong><span>CRM & AI Automation Specialist</span><small><MapPin /> Bohol, Philippines · GMT+8</small><button className="primary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></section><section className="skills-panel"><span className="card-kicker">TECHNICAL CAPABILITIES</span><h3>The skills behind dependable automation.</h3><div>{skills.map(skill => <span key={skill}>{skill}</span>)}</div></section></div>;
 }
 
-function ContactView() {
-  return <div className="view-shell contact-view"><PageHeading eyebrow="CONTACT" title="Let’s make the workflow clearer." text="Tell me what you are working on, where the process gets repetitive, or how I could contribute to your team." /><div className="contact-grid"><a href={emailUrl}><span className="contact-icon"><Mail /></span><div><small>EMAIL</small><h3>chesautomate@gmail.com</h3><p>Write from your preferred email app.</p></div><ExternalLink /></a><a href={whatsappUrl} target="_blank" rel="noreferrer"><span className="contact-icon"><MessageCircle /></span><div><small>WHATSAPP</small><h3>+63 912 503 3533</h3><p>Start a direct conversation about your workflow.</p></div><ExternalLink /></a><a href="https://www.linkedin.com/in/chester-wapanio-79130138b" target="_blank" rel="noreferrer"><span className="contact-icon"><Linkedin /></span><div><small>LINKEDIN</small><h3>Chester Wapanio</h3><p>Connect and view my professional profile.</p></div><ExternalLink /></a><a href="https://www.onlinejobs.ph/jobseekers/info/3858644" target="_blank" rel="noreferrer"><span className="contact-icon"><BriefcaseBusiness /></span><div><small>ONLINEJOBS.PH</small><h3>View my jobseeker profile</h3><p>Skills, availability, and work information.</p></div><ExternalLink /></a></div><div className="availability-card"><span className="availability-dot" /><div><strong>Open to freelance projects and team opportunities</strong><p>Based in the Philippines and available for remote collaboration.</p></div></div></div>;
+function ContactView({ onEmail }: { onEmail: () => void }) {
+  return <div className="view-shell contact-view"><PageHeading eyebrow="CONTACT" title="Let’s make the workflow clearer." text="Tell me what you are working on, where the process gets repetitive, or how I could contribute to your team." /><div className="contact-grid"><button type="button" onClick={onEmail}><span className="contact-icon"><Mail /></span><div><small>EMAIL</small><h3>{emailAddress}</h3><p>Choose Gmail, Outlook, or copy my email address.</p></div><ChevronRight /></button><a href={whatsappUrl} target="_blank" rel="noreferrer"><span className="contact-icon"><MessageCircle /></span><div><small>WHATSAPP</small><h3>+63 912 503 3533</h3><p>Start a direct conversation about your workflow.</p></div><ExternalLink /></a><a href="https://www.linkedin.com/in/chester-wapanio-79130138b" target="_blank" rel="noreferrer"><span className="contact-icon"><Linkedin /></span><div><small>LINKEDIN</small><h3>Chester Wapanio</h3><p>Connect and view my professional profile.</p></div><ExternalLink /></a><a href="https://www.onlinejobs.ph/jobseekers/info/3858644" target="_blank" rel="noreferrer"><span className="contact-icon"><BriefcaseBusiness /></span><div><small>ONLINEJOBS.PH</small><h3>View my jobseeker profile</h3><p>Skills, availability, and work information.</p></div><ExternalLink /></a></div><div className="availability-card"><span className="availability-dot" /><div><strong>Open to freelance projects and team opportunities</strong><p>Based in the Philippines and available for remote collaboration.</p></div></div></div>;
+}
+
+function EmailDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!open) setCopied(false);
+  }, [open]);
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(emailAddress);
+    setCopied(true);
+  };
+
+  return <Dialog open={open} onOpenChange={onOpenChange}>
+    <DialogContent className="email-dialog">
+      <DialogTitle>Choose how to email me</DialogTitle>
+      <DialogDescription>Open a web email service or copy the address to use anywhere.</DialogDescription>
+      <div className="email-address"><Mail size={18} /><span>{emailAddress}</span></div>
+      <div className="email-options">
+        <a href={gmailUrl} target="_blank" rel="noreferrer"><span>Open in Gmail</span><ExternalLink size={16} /></a>
+        <a href={outlookUrl} target="_blank" rel="noreferrer"><span>Open in Outlook</span><ExternalLink size={16} /></a>
+        <button type="button" onClick={copyEmail}>{copied ? <><Check size={17} /> Email copied</> : <><Copy size={17} /> Copy email address</>}</button>
+      </div>
+    </DialogContent>
+  </Dialog>;
 }
