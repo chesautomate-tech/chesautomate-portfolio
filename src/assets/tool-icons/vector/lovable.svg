@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title">
+  <title id="title">Lovable</title>
+  <defs><linearGradient id="lovable-gradient" x1=".12" y1=".08" x2=".7" y2=".94"><stop offset="0" stop-color="#ff7817"/><stop offset=".38" stop-color="#ff3157"/><stop offset=".68" stop-color="#db55ca"/><stop offset="1" stop-color="#6176ff"/></linearGradient></defs>
+  <path fill="url(#lovable-gradient)" d="M133 469V208c0-58 47-105 105-105s105 47 105 105v43h42c60 0 108 48 108 108s-48 110-108 110H133Z"/>
+</svg>

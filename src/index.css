@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer base {
+  :root {
+    --background: 160 20% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 160 15% 7%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 160 15% 7%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 160 30% 15%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 160 10% 15%;
+    --muted-foreground: 160 10% 55%;
+
+    --accent: 160 84% 39%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 160 20% 15%;
+    --input: 160 20% 15%;
+    --ring: 160 84% 39%;
+
+    --radius: 0.75rem;
+
+    /* Emerald Theme Colors */
+    --emerald: 160 84% 39%;
+    --emerald-light: 160 70% 50%;
+    --emerald-dark: 160 90% 25%;
+    
+    /* Platform Colors */
+    --zapier-orange: 30 100% 55%;
+    --make-purple: 270 70% 60%;
+    --n8n-pink: 330 80% 55%;
+    --ghl-blue: 210 100% 55%;
+
+    /* Glass Effect */
+    --glass-bg: hsl(160 20% 100% / 0.03);
+    --glass-border: hsl(160 30% 30% / 0.3);
+    --glass-border-hover: hsl(var(--emerald) / 0.5);
+
+    --sidebar-background: 160 15% 7%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 160 84% 39%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 10% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 160 20% 15%;
+    --sidebar-ring: 160 84% 39%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-md rounded-xl;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: hsl(var(--emerald) / 0.4);
+    box-shadow: 0 0 30px hsl(var(--emerald) / 0.1);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--emerald)), hsl(var(--emerald-light)));
+  }
+
+  .emerald-glow {
+    box-shadow: 0 0 40px hsl(var(--emerald) / 0.3);
+  }
+
+  .stat-badge {
+    @apply glass-card px-4 py-2 text-sm font-medium;
+    border: 1px solid hsl(var(--emerald) / 0.3);
+  }
+
+  .progress-bar {
+    @apply h-2 rounded-full overflow-hidden;
+    background: hsl(160 20% 15%);
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-1000 ease-out;
+  }
+
+  .skill-chip {
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300;
+    background: hsl(160 20% 10%);
+    border: 1px solid hsl(var(--emerald) / 0.2);
+    color: hsl(var(--emerald-light));
+  }
+
+  .skill-chip:hover {
+    border-color: hsl(var(--emerald) / 0.5);
+    background: hsl(160 20% 12%);
+  }
+
+  .workflow-card {
+    @apply rounded-xl overflow-hidden cursor-pointer transition-all duration-300;
+    background: hsl(160 15% 8%);
+    border: 1px solid hsl(160 20% 15%);
+  }
+
+  .workflow-card:hover {
+    border-color: hsl(var(--emerald) / 0.4);
+    transform: translateY(-4px);
+  }
+
+  .platform-tab {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+
+  .platform-tab.active {
+    background: hsl(var(--emerald));
+    color: hsl(var(--background));
+  }
+
+  .platform-tab:not(.active) {
+    background: hsl(160 20% 10%);
+    color: hsl(var(--muted-foreground));
+  }
+
+  .platform-tab:not(.active):hover {
+    background: hsl(160 20% 15%);
+    color: hsl(var(--foreground));
+  }
+
+  .social-link {
+    @apply glass-card px-5 py-4 flex items-center gap-3 transition-all duration-300;
+    border: 1px solid hsl(var(--emerald) / 0.2);
+  }
+
+  .social-link:hover {
+    border-color: hsl(var(--emerald) / 0.5);
+    background: hsl(var(--emerald) / 0.1);
+  }
+
+  .cursor-spotlight {
+    pointer-events: none;
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(
+      circle,
+      hsl(var(--emerald) / 0.08) 0%,
+      hsl(var(--emerald) / 0.03) 30%,
+      transparent 70%
+    );
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    transition: opacity 0.3s ease;
+  }
+}
+
+@layer utilities {
+  .animate-grid {
+    background-image: 
+      linear-gradient(hsl(var(--emerald) / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--emerald) / 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: grid-move 20s linear infinite;
+  }
+}
+
+@keyframes grid-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60px 60px;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+    box-shadow: 0 0 20px hsl(var(--emerald) / 0.3);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 40px hsl(var(--emerald) / 0.5);
+  }
+}
