@@ -31,10 +31,6 @@
 .experience-work-card { padding: 24px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 18px; background: linear-gradient(145deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .02)); }
 .experience-work-card h4 { margin: 0 0 10px; font-size: 1.02rem; line-height: 1.35; }
 .experience-work-card p { margin: 0; color: #a1a1aa; font-size: .85rem; line-height: 1.65; }
-.experience-review { display: flex; align-items: flex-start; gap: 16px; margin-top: 18px; padding: 22px 24px; border: 1px solid rgba(255, 205, 117, .17); border-radius: 18px; background: rgba(255, 205, 117, .045); }
-.experience-review .card-icon { flex: 0 0 38px; margin-bottom: 0; }
-.experience-review h3 { margin: 0 0 7px; font-size: 1rem; line-height: 1.4; }
-.experience-review p { margin: 0; color: #a1a1aa; font-size: .85rem; line-height: 1.65; }
 .experience-view .wide-cta h3 { font-size: 1.2rem; }
 .experience-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 @media (min-width: 781px) and (max-height: 850px) {
@@ -57,7 +53,6 @@
   .experience-engagement { padding: 22px 20px; }
   .experience-work-grid { grid-template-columns: 1fr; }
   .experience-work-card { padding: 20px; }
-  .experience-review { gap: 12px; padding: 20px; }
   .experience-actions { width: 100%; }
   .experience-actions button { width: 100%; white-space: normal; }
 }

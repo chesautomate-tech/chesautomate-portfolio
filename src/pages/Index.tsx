@@ -249,7 +249,7 @@ function ExperienceView({ navigate }: { navigate: (view: View) => void }) {
     { icon: Workflow, title: 'Requirements into workflow logic', text: 'Translated detailed business briefs into multi-step workflows with conditional branches, lookup rules, and clear data handoffs.' },
     { icon: Network, title: 'Data and tool connections', text: 'Cleaned and normalized inputs, applied formulas and JavaScript, and connected tools through REST APIs and webhooks.' },
     { icon: Check, title: 'Testing and error handling', text: 'Tested normal and edge-case inputs, checked outputs between steps, and added review queues and alerts for incomplete data.' },
-    { icon: FolderKanban, title: 'AI-training materials', text: 'Delivered screen recordings, computer interaction data, workflow blueprints, and technical documentation for training AI models to use business software.' },
+    { icon: FolderKanban, title: 'AI-training materials', text: 'Delivered screen recordings, computer interaction data, workflow blueprints, and technical documentation to help teach AI how to use a computer.' },
   ];
 
   return <div className="view-shell experience-view">
@@ -260,7 +260,7 @@ function ExperienceView({ navigate }: { navigate: (view: View) => void }) {
         <h3 id="experience-role">Automation Logic Specialist</h3>
         <p className="experience-company">Postwork Labs, Inc.</p>
         <div className="experience-meta"><span>January–May 2026</span><span>US startup company · Remote</span></div>
-        <p className="experience-description">I worked with Postwork Labs to build and test 50+ end-to-end business automation workflows across Zapier, Make, and n8n for AI training. My recordings, computer interaction data, and workflow documentation helped train AI models to navigate software, follow multi-step processes, and handle data.</p>
+        <p className="experience-description">I worked with Postwork Labs to build and test 50+ end-to-end business automation workflows across Zapier, Make, and n8n for AI training. My recordings, computer interaction data, and workflow documentation helped teach AI how to use a computer, navigate applications, and complete multi-step tasks.</p>
         <div className="experience-stack" aria-label="Contract tools"><span>Zapier</span><span>Make</span><span>n8n</span><span>REST APIs</span><span>Webhooks</span><span>Google Workspace</span><span>Trello</span><span>Slack</span></div>
       </div>
       <aside className="experience-scope" aria-label="Contract scope">
@@ -273,7 +273,6 @@ function ExperienceView({ navigate }: { navigate: (view: View) => void }) {
       <div className="experience-section-heading"><span className="card-kicker">WHAT I DELIVERED</span><h3 id="experience-work-heading">From requirements to tested workflows.</h3></div>
       <div className="experience-work-grid">{responsibilities.map(item => { const Icon = item.icon; return <article className="experience-work-card" key={item.title}><span className="card-icon"><Icon /></span><h4>{item.title}</h4><p>{item.text}</p></article>; })}</div>
     </section>
-    <section className="experience-review" aria-labelledby="experience-review-heading"><span className="card-icon"><Check /></span><div><h3 id="experience-review-heading">Reviewed against acceptance criteria.</h3><p>Postwork Labs checked my submissions against its requirements and acceptance criteria before approving and paying for accepted work.</p></div></section>
     <div className="wide-cta"><div><span>EXPLORE THE WORK</span><h3>See how I approach automation.</h3></div><div className="experience-actions"><button className="secondary-action" type="button" onClick={() => navigate('projects')}>View portfolio projects</button><button className="primary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></div>
   </div>;
 }
