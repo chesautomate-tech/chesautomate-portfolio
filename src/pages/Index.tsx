@@ -60,7 +60,7 @@ const viewMetadata: Record<View, { title: string; description: string }> = {
   },
   experience: {
     title: 'Work Experience | Chester Wapanio',
-    description: 'Chester Wapanio’s Automation Logic Specialist contract at Postwork Labs, a US startup company, from January to May 2026. Built and tested 50+ workflows across Zapier, Make, and n8n for AI training.',
+    description: 'Chester Wapanio’s Automation Logic Specialist contract at Postwork Labs, a US startup company, from January to May 2026. Built and tested 40+ workflows across Zapier, Make, and n8n for AI training.',
   },
   services: {
     title: 'CRM & Workflow Automation Services | Chester Wapanio',
@@ -229,7 +229,7 @@ function HomeView({ navigate, onProject }: { navigate: (view: View) => void; onP
         </div>
         <div className="featured-image"><span>LIVE WORKFLOW PREVIEW</span><img src={featured.image} alt="AI-powered lead reactivation workflow" /></div>
       </button>
-      <button className="bento-card experience-card" type="button" onClick={() => navigate('experience')}><span className="card-icon"><BriefcaseBusiness /></span><span className="card-kicker">CONTRACT EXPERIENCE</span><h3>50+ workflows built and tested.</h3><p>Automation Logic Specialist at Postwork Labs, a US startup company, building workflows for AI training.</p><div className="mini-platforms"><span>Zapier</span><span>Make</span><span>n8n</span></div><span className="card-link">Explore my experience <ChevronRight /></span></button>
+      <button className="bento-card experience-card" type="button" onClick={() => navigate('experience')}><span className="card-icon"><BriefcaseBusiness /></span><span className="card-kicker">CONTRACT EXPERIENCE</span><h3>40+ workflows built and tested.</h3><p>Automation Logic Specialist at Postwork Labs, a US startup company, building workflows for AI training.</p><div className="mini-platforms"><span>Zapier</span><span>Make</span><span>n8n</span></div><span className="card-link">Explore my experience <ChevronRight /></span></button>
       <button className="bento-card projects-card" type="button" onClick={() => navigate('projects')}><span className="card-icon"><FolderKanban /></span><span className="card-kicker">PROJECT LIBRARY</span><strong className="big-number">19</strong><h3>Workflow demonstrations</h3><div className="mini-platforms"><span>n8n</span><span>Make</span><span>Zapier</span><span>GHL</span></div></button>
       <button className="bento-card services-card" type="button" onClick={() => navigate('services')}><span className="card-icon"><Layers3 /></span><span className="card-kicker">SERVICES</span><h3>What I can build</h3><ol>{services.slice(0, 5).map((service, index) => <li key={service.title}><span>{service.title}</span><small>0{index + 1}</small></li>)}</ol></button>
       <button className="bento-card credentials-card" type="button" onClick={() => navigate('credentials')}><span className="card-icon"><Award /></span><span className="card-kicker">CREDENTIALS</span><h3>Training behind the work</h3><div className="cert-preview"><img src={n8nCert} alt="Complete n8n training certificate preview" /></div><span className="credential-card-link">View all credentials <ChevronRight /></span></button>
@@ -249,7 +249,7 @@ function ExperienceView({ navigate }: { navigate: (view: View) => void }) {
     { icon: Workflow, title: 'Requirements into workflow logic', text: 'Translated detailed business briefs into multi-step workflows with conditional branches, lookup rules, and clear data handoffs.' },
     { icon: Network, title: 'Data and tool connections', text: 'Cleaned and normalized inputs, applied formulas and JavaScript, and connected tools through REST APIs and webhooks.' },
     { icon: Check, title: 'Testing and error handling', text: 'Tested normal and edge-case inputs, checked outputs between steps, and added review queues and alerts for incomplete data.' },
-    { icon: FolderKanban, title: 'AI-training materials', text: 'Delivered screen recordings, computer interaction data, workflow blueprints, and technical documentation to help teach AI how to use a computer.' },
+    { icon: FolderKanban, title: 'AI-training materials', text: 'Created training materials—including screen recordings, computer interaction data, workflow blueprints, and documentation—to teach AI models how to use a computer.' },
   ];
 
   return <div className="view-shell experience-view">
@@ -260,11 +260,11 @@ function ExperienceView({ navigate }: { navigate: (view: View) => void }) {
         <h3 id="experience-role">Automation Logic Specialist</h3>
         <p className="experience-company">Postwork Labs, Inc.</p>
         <div className="experience-meta"><span>January–May 2026</span><span>US startup company · Remote</span></div>
-        <p className="experience-description">I worked with Postwork Labs to build and test 50+ end-to-end business automation workflows across Zapier, Make, and n8n for AI training. My recordings, computer interaction data, and workflow documentation helped teach AI how to use a computer, navigate applications, and complete multi-step tasks.</p>
+        <p className="experience-description">I worked with Postwork Labs to build and test 40+ end-to-end business automation workflows across Zapier, Make, and n8n for AI training. My recordings, computer interaction data, and workflow documentation helped teach AI models how to use a computer, navigate applications, and complete multi-step tasks.</p>
         <div className="experience-stack" aria-label="Contract tools"><span>Zapier</span><span>Make</span><span>n8n</span><span>REST APIs</span><span>Webhooks</span><span>Google Workspace</span><span>Trello</span><span>Slack</span></div>
       </div>
       <aside className="experience-scope" aria-label="Contract scope">
-        <div><strong>50+</strong><span>Workflows built and tested</span></div>
+        <div><strong>40+</strong><span>Workflows built and tested</span></div>
         <div><strong>3</strong><span>Automation platforms</span></div>
         <p>This count describes my contract workflows. The Projects section separately showcases 19 personal demonstrations built with sample data.</p>
       </aside>
