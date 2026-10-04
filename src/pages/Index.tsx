@@ -30,8 +30,9 @@ import n8nCert from '@/assets/certificates/n8n-cert.png';
 import ghlCert from '@/assets/certificates/ghl-cert.png';
 import promptCert from '@/assets/certificates/prompt-engineering-cert.png';
 import '@/dashboard.css';
+import '@/experience.css';
 
-type View = 'home' | 'projects' | 'services' | 'credentials' | 'about' | 'contact';
+type View = 'home' | 'projects' | 'experience' | 'services' | 'credentials' | 'about' | 'contact';
 
 const emailAddress = 'chesautomate@gmail.com';
 const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=chesautomate@gmail.com&su=Portfolio%20Inquiry';
@@ -41,6 +42,7 @@ const whatsappUrl = 'https://wa.me/639125033533?text=Hi%20Chester%2C%20I%20found
 const navigation: { id: View; label: string; icon: typeof Home }[] = [
   { id: 'home', label: 'Home', icon: Home },
   { id: 'projects', label: 'Projects', icon: FolderKanban },
+  { id: 'experience', label: 'Experience', icon: BriefcaseBusiness },
   { id: 'services', label: 'Services', icon: Layers3 },
   { id: 'credentials', label: 'Credentials', icon: Award },
   { id: 'about', label: 'About', icon: CircleUserRound },
@@ -55,6 +57,10 @@ const viewMetadata: Record<View, { title: string; description: string }> = {
   projects: {
     title: 'Automation Projects | n8n, Make, Zapier & GoHighLevel',
     description: 'Explore sample CRM and AI automation workflows by Chester Wapanio, including lead reactivation, data pipelines, content repurposing, and follow-up systems.',
+  },
+  experience: {
+    title: 'Work Experience | Chester Wapanio',
+    description: 'Chester Wapanio’s Automation Logic Specialist contract at Postwork Labs, a US startup company, from January to May 2026. Built and tested 50+ workflows across Zapier, Make, and n8n.',
   },
   services: {
     title: 'CRM & Workflow Automation Services | Chester Wapanio',
@@ -179,6 +185,7 @@ export default function Index() {
       <main id="dashboard-main" className="dashboard-main">
         {view === 'home' && <HomeView navigate={navigate} onProject={setSelectedProject} />}
         {view === 'projects' && <ProjectsView platform={platform} setPlatform={setPlatform} projects={filteredProjects} onProject={setSelectedProject} />}
+        {view === 'experience' && <ExperienceView navigate={navigate} />}
         {view === 'services' && <ServicesView navigate={navigate} />}
         {view === 'credentials' && <CredentialsView onCertificate={setSelectedCertificate} />}
         {view === 'about' && <AboutView navigate={navigate} />}
@@ -222,7 +229,7 @@ function HomeView({ navigate, onProject }: { navigate: (view: View) => void; onP
         </div>
         <div className="featured-image"><span>LIVE WORKFLOW PREVIEW</span><img src={featured.image} alt="AI-powered lead reactivation workflow" /></div>
       </button>
-      <button className="bento-card about-card" type="button" onClick={() => navigate('about')}><span className="card-icon"><CircleUserRound /></span><span className="card-kicker">ABOUT</span><h3>Clear systems, thoughtfully built.</h3><p>I turn practical workflow problems into connected automation demonstrations.</p></button>
+      <button className="bento-card experience-card" type="button" onClick={() => navigate('experience')}><span className="card-icon"><BriefcaseBusiness /></span><span className="card-kicker">CONTRACT EXPERIENCE</span><h3>50+ workflows built and tested.</h3><p>Automation Logic Specialist at Postwork Labs, a US startup company.</p><div className="mini-platforms"><span>Zapier</span><span>Make</span><span>n8n</span></div><span className="card-link">Explore my experience <ChevronRight /></span></button>
       <button className="bento-card projects-card" type="button" onClick={() => navigate('projects')}><span className="card-icon"><FolderKanban /></span><span className="card-kicker">PROJECT LIBRARY</span><strong className="big-number">19</strong><h3>Workflow demonstrations</h3><div className="mini-platforms"><span>n8n</span><span>Make</span><span>Zapier</span><span>GHL</span></div></button>
       <button className="bento-card services-card" type="button" onClick={() => navigate('services')}><span className="card-icon"><Layers3 /></span><span className="card-kicker">SERVICES</span><h3>What I can build</h3><ol>{services.slice(0, 5).map((service, index) => <li key={service.title}><span>{service.title}</span><small>0{index + 1}</small></li>)}</ol></button>
       <button className="bento-card credentials-card" type="button" onClick={() => navigate('credentials')}><span className="card-icon"><Award /></span><span className="card-kicker">CREDENTIALS</span><h3>Training behind the work</h3><div className="cert-preview"><img src={n8nCert} alt="Complete n8n training certificate preview" /></div><span className="credential-card-link">View all credentials <ChevronRight /></span></button>
@@ -235,6 +242,40 @@ function HomeView({ navigate, onProject }: { navigate: (view: View) => void; onP
 function ProjectsView({ platform, setPlatform, projects: visibleProjects, onProject }: { platform: 'All' | Platform; setPlatform: (platform: 'All' | Platform) => void; projects: Project[]; onProject: (project: Project) => void }) {
   const filters: ('All' | Platform)[] = ['All', 'n8n', 'Make', 'Zapier', 'GoHighLevel'];
   return <div className="view-shell"><PageHeading eyebrow="PROJECTS" title="Workflow logic you can explore." text="A collection of personal automation demonstrations built with sample data. Open any project to see the workflow at full size." /><div className="project-filters" role="group" aria-label="Filter projects by platform">{filters.map(filter => <button type="button" key={filter} className={platform === filter ? 'active' : ''} onClick={() => setPlatform(filter)}>{filter}</button>)}</div><div className="dashboard-project-grid">{visibleProjects.map(project => <button className="dashboard-project-card" type="button" key={`${project.platform}-${project.title}`} onClick={() => onProject(project)}><div className="project-image"><img src={project.image} alt={`${project.title} workflow`} loading="lazy" /></div><div className="project-card-body"><span>{project.platform}</span><h3>{project.title}</h3><p>{project.description || 'A personal workflow demonstration exploring connected automation logic.'}</p><small>View workflow <ChevronRight /></small></div></button>)}</div></div>;
+}
+
+function ExperienceView({ navigate }: { navigate: (view: View) => void }) {
+  const responsibilities = [
+    { icon: Workflow, title: 'Requirements into workflow logic', text: 'Translated detailed business briefs into multi-step workflows with conditional branches, lookup rules, and clear data handoffs.' },
+    { icon: Network, title: 'Data and tool connections', text: 'Cleaned and normalized inputs, applied formulas and JavaScript, and connected tools through REST APIs and webhooks.' },
+    { icon: Check, title: 'Testing and error handling', text: 'Tested normal and edge-case inputs, checked outputs between steps, and added review queues and alerts for incomplete data.' },
+    { icon: FolderKanban, title: 'Reviewable deliverables', text: 'Prepared workflow exports, screen recordings, and technical documentation so submissions could be reviewed against the task requirements.' },
+  ];
+
+  return <div className="view-shell experience-view">
+    <PageHeading eyebrow="EXPERIENCE" title="Business automation experience." text="Paid contract work building and testing workflows for a US startup company." />
+    <article className="experience-engagement" aria-labelledby="experience-role">
+      <div className="experience-summary">
+        <div className="experience-label"><BriefcaseBusiness size={16} /><span>COMPLETED CONTRACT</span></div>
+        <h3 id="experience-role">Automation Logic Specialist</h3>
+        <p className="experience-company">Postwork Labs, Inc.</p>
+        <div className="experience-meta"><span>January–May 2026</span><span>US startup company · Remote</span></div>
+        <p className="experience-description">I worked with Postwork Labs to build and test 50+ end-to-end business automation workflows across Zapier, Make, and n8n, turning detailed requirements into functioning workflows.</p>
+        <div className="experience-stack" aria-label="Contract tools"><span>Zapier</span><span>Make</span><span>n8n</span><span>REST APIs</span><span>Webhooks</span><span>Google Workspace</span><span>Trello</span><span>Slack</span></div>
+      </div>
+      <aside className="experience-scope" aria-label="Contract scope">
+        <div><strong>50+</strong><span>Workflows built and tested</span></div>
+        <div><strong>3</strong><span>Automation platforms</span></div>
+        <p>This count describes my contract workflows. The Projects section separately showcases 19 personal demonstrations built with sample data.</p>
+      </aside>
+    </article>
+    <section className="experience-responsibilities" aria-labelledby="experience-work-heading">
+      <div className="experience-section-heading"><span className="card-kicker">WHAT I DELIVERED</span><h3 id="experience-work-heading">From requirements to tested workflows.</h3></div>
+      <div className="experience-work-grid">{responsibilities.map(item => { const Icon = item.icon; return <article className="experience-work-card" key={item.title}><span className="card-icon"><Icon /></span><h4>{item.title}</h4><p>{item.text}</p></article>; })}</div>
+    </section>
+    <section className="experience-review" aria-labelledby="experience-review-heading"><span className="card-icon"><Check /></span><div><h3 id="experience-review-heading">Reviewed against acceptance criteria.</h3><p>Postwork Labs checked my submissions against its requirements and acceptance criteria before approving and paying for accepted work.</p></div></section>
+    <div className="wide-cta"><div><span>EXPLORE THE WORK</span><h3>See how I approach automation.</h3></div><div className="experience-actions"><button className="secondary-action" type="button" onClick={() => navigate('projects')}>View portfolio projects</button><button className="primary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></div>
+  </div>;
 }
 
 function ServicesView({ navigate }: { navigate: (view: View) => void }) {
