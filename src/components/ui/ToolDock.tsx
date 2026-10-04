@@ -122,7 +122,7 @@ export function ToolDock({ items }: { items: ToolDockItem[] }) {
 
   return (
     <div className="supporting-tools-dock">
-      <div className="supporting-tools-stage">
+      <div className="supporting-tools-stage" tabIndex={still ? 0 : undefined} role="region" aria-label="Connected apps">
         <span className={`support-tool-tooltip ${active === null ? '' : 'is-visible'}`} style={{ left: tooltipX }} aria-hidden="true">
           {active === null ? '' : items[active].label}
         </span>
