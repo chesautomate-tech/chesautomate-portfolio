@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/compone
 import ProjectDialog from '@/components/ProjectDialog';
 import { ToolDock, type ToolDockItem } from '@/components/ui/ToolDock';
 import { Platform, Project, projects } from '@/data/projects';
-import profile from '@/assets/chester-profile-dark.png';
+import profile from '@/assets/chester-profile-professional.png';
 import n8nLogo from '@/assets/logos/n8n.png';
 import makeLogo from '@/assets/logos/make.png';
 import zapierLogo from '@/assets/logos/zapier.jpg';
