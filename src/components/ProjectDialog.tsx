@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import { ArrowUpRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { Project, type Platform } from '@/data/projects';
+import NorthlineCaseStudy from '@/components/NorthlineCaseStudy';
 import n8nLogo from '@/assets/logos/icons/n8n.svg';
 import makeLogo from '@/assets/logos/icons/make.svg';
 import zapierLogo from '@/assets/logos/icons/zapier.png';
@@ -13,10 +15,16 @@ const platformLogos: Record<Platform, { src: string; className: string }> = {
   GoHighLevel: { src: highlevelLogo, className: 'highlevel' },
 };
 
-export default function ProjectDialog({ project, onClose }: { project: Project | null; onClose: () => void }) {
+export default function ProjectDialog({ project, onClose, onDiscuss }: { project: Project | null; onClose: () => void; onDiscuss: () => void }) {
+  const titleRef = useRef<HTMLHeadingElement>(null);
   return (
     <Dialog open={!!project} onOpenChange={(open) => { if (!open) onClose(); }}>
-      <DialogContent className="project-dialog">
+      <DialogContent className={`project-dialog${project?.caseStudy === 'northline' ? ' northline-dialog' : ''}`} onOpenAutoFocus={event => {
+        if (project?.caseStudy === 'northline') {
+          event.preventDefault();
+          titleRef.current?.focus({ preventScroll: true });
+        }
+      }}>
         {project && (
           <>
             <header className="project-dialog-heading">
@@ -26,11 +34,11 @@ export default function ProjectDialog({ project, onClose }: { project: Project |
                 </span>
                 <span className="project-dialog-context"><strong>{project.platform}</strong><span>Workflow case study</span></span>
               </div>
-              <DialogTitle>{project.title}</DialogTitle>
-              <DialogDescription>Personal portfolio demonstration built with sample data</DialogDescription>
+              <DialogTitle ref={titleRef} tabIndex={project.caseStudy === 'northline' ? -1 : undefined}>{project.title}</DialogTitle>
+              <DialogDescription>{project.caseStudy === 'northline' ? 'A portfolio project for Northline, a fictional event services company.' : 'Personal portfolio demonstration built with sample data'}</DialogDescription>
             </header>
 
-            <div className="project-dialog-body">
+            {project.caseStudy === 'northline' ? <NorthlineCaseStudy onDiscuss={onDiscuss} /> : <div className="project-dialog-body">
               <section className="project-dialog-overview">
                 <a className="full-canvas" href={project.image} target="_blank" rel="noopener noreferrer">
                   <img src={project.image} alt={`${project.title} — complete workflow`} />
@@ -98,7 +106,7 @@ export default function ProjectDialog({ project, onClose }: { project: Project |
               )}
 
               <p className="project-note">Personal project · Sample data · No client information used</p>
-            </div>
+            </div>}
           </>
         )}
       </DialogContent>

@@ -79,6 +79,41 @@
 .credentials-card:hover .cert-preview img{transform:scale(1.025)}
 @media(prefers-reduced-motion:reduce){.credentials-card .cert-preview img{transition:none}.credentials-card:hover .cert-preview img{transform:none}}
 
+/* Show the featured work directly after a more compact introduction. */
+.home-view { padding-top: 30px; }
+.home-view .home-intro { margin-bottom: 22px; gap: 28px; }
+.home-view .home-intro h2 { font-size: clamp(2.2rem,3.4vw,3.25rem); line-height: 1.04; }
+.home-view .availability-badge { margin-bottom: 12px; }
+.home-view .hero-actions { margin-top: 18px; }
+.home-view .hero-proof { padding: 22px; }
+.home-featured { margin-bottom: 20px; }
+.home-featured > .northline-featured-card { width: 100%; }
+@media(min-width:781px) {
+  .home-view { padding-top: 24px; }
+  .home-view .home-intro { margin-bottom: 18px; }
+  .home-view .home-intro h2 { font-size: clamp(2.1rem,3vw,2.75rem); margin: 8px 0 10px; }
+  .home-view .intro-copy > p { font-size: .92rem; line-height: 1.5; }
+  .home-view .availability-badge { margin-bottom: 10px; padding: 6px 10px; font-size: .68rem; }
+  .home-view .hero-actions { margin-top: 14px; align-items: center; }
+  .home-view .hero-actions button { margin-top: 0; padding: 11px 18px; font-size: .85rem; }
+  .home-view .hero-proof { padding: 18px 20px; }
+  .home-view .hero-proof h3 { font-size: 1.35rem; margin-bottom: 14px; }
+  .home-view .hero-proof > p { margin-top: 12px; font-size: .76rem; }
+  .home-view .proof-stats { padding: 12px 0; }
+  .home-view .home-featured { margin-bottom: 16px; }
+}
+@media(max-width:780px) {
+  .home-view { padding-top: 22px; }
+  .home-view .home-intro { gap: 18px; }
+  .home-view .home-intro h2 { font-size: 2.2rem; }
+  .home-view .hero-proof { padding: 14px 18px; }
+  .home-view .hero-proof .card-kicker,.home-view .hero-proof h3 { display: none; }
+  .home-view .hero-proof > p { display: none; }
+  .home-view .proof-stats { padding: 0; border: 0; }
+  .home-view .hero-actions .primary-action,.home-view .hero-actions .secondary-action { padding: 12px 14px; font-size: .8rem; }
+  .home-view .hero-actions .primary-action { margin-top: 0; }
+}
+
 /* Project case-study dialog */
 .project-dialog.project-dialog{width:min(1080px,calc(100vw - 40px))!important;max-width:1080px!important;max-height:min(88dvh,900px)!important;padding:0!important;gap:0!important;overflow:hidden!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:22px!important;background:linear-gradient(140deg,#1e1d1d 0%,#151414 58%,#111112 100%)!important;color:#fafafa!important;box-shadow:0 40px 120px rgba(0,0,0,.72)!important}
 .project-dialog.project-dialog>button{top:20px!important;right:20px!important;z-index:5!important;width:38px;height:38px;padding:0!important;display:grid!important;place-items:center!important;border:1px solid rgba(255,255,255,.13)!important;border-radius:12px!important;background:#252424!important;color:#fafafa!important;opacity:1!important;box-shadow:none!important;transition:background .2s,border-color .2s!important}

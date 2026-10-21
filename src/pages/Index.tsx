@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import ProjectDialog from '@/components/ProjectDialog';
+import FeaturedCaseStudies from '@/components/FeaturedCaseStudies';
 import { ToolDock, type ToolDockItem } from '@/components/ui/ToolDock';
 import { Platform, Project, projects } from '@/data/projects';
 import profile from '@/assets/chester-profile-professional.png';
@@ -60,7 +61,7 @@ const viewMetadata: Record<View, { title: string; description: string }> = {
   },
   experience: {
     title: 'Work Experience | Chester Wapanio',
-    description: 'Chester Wapanio’s Automation Logic Specialist contract at Postwork Labs, a US startup company, from January to May 2026. Built and tested 40+ workflows across Zapier, Make, and n8n for AI training.',
+    description: 'Chester Wapanio’s Automation Logic Specialist contract experience, January–May 2026: 40+ workflows built and tested across Zapier, Make, and n8n.',
   },
   services: {
     title: 'CRM & Workflow Automation Services | Chester Wapanio',
@@ -192,7 +193,7 @@ export default function Index() {
         {view === 'contact' && <ContactView onEmail={() => setEmailDialogOpen(true)} />}
       </main>
 
-      <ProjectDialog project={selectedProject} onClose={() => setSelectedProject(null)} />
+      <ProjectDialog project={selectedProject} onClose={() => setSelectedProject(null)} onDiscuss={() => { setSelectedProject(null); navigate('contact'); }} />
       <Dialog open={!!selectedCertificate} onOpenChange={(open) => { if (!open) setSelectedCertificate(null); }}>
         <DialogContent className="dashboard-certificate-dialog">{selectedCertificate && <><DialogTitle>{selectedCertificate.title}</DialogTitle><DialogDescription>{selectedCertificate.platform} · Training certificate</DialogDescription><img src={selectedCertificate.image} alt={`${selectedCertificate.title} certificate`} /><a href={selectedCertificate.image} target="_blank" rel="noreferrer">Open full-resolution certificate <ExternalLink size={15} /></a></>}</DialogContent>
       </Dialog>
@@ -206,9 +207,10 @@ function PageHeading({ eyebrow, title, text }: { eyebrow: string; title: string;
 }
 
 function HomeView({ navigate, onProject }: { navigate: (view: View) => void; onProject: (project: Project) => void }) {
-  const featured = projects[0];
+  const featuredProjects = projects.filter(project => project.featured);
   return <div className="view-shell home-view">
-    <section className="home-intro"><div className="intro-copy"><span className="availability-badge"><i /> Open to freelance and team opportunities</span><span className="eyebrow">CRM · AUTOMATION · AI</span><h2>Automation systems that keep <span>leads moving.</span></h2><p>I connect your tools, organize your leads, and automate the follow-up—so your business has fewer repetitive steps and a clearer customer journey.</p><div className="hero-actions"><button className="primary-action" type="button" onClick={() => navigate('projects')}>Explore projects</button><button className="secondary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></div><aside className="hero-proof" aria-label="Portfolio summary"><span className="card-kicker">PORTFOLIO AT A GLANCE</span><h3>Built to show the work.</h3><div className="proof-stats"><div><strong>19</strong><span>Workflow demos</span></div><div><strong>4</strong><span>Platforms</span></div><div><strong>5</strong><span>Credentials</span></div></div><p>Hands-on automation projects built with sample data and clear workflow logic.</p></aside></section>
+    <section className="home-intro"><div className="intro-copy"><span className="availability-badge"><i /> Open to freelance and team opportunities</span><span className="eyebrow">CRM · AUTOMATION · AI</span><h2>Automation systems that keep <span>leads moving.</span></h2><p>I connect your tools, organize your leads, and automate the follow-up—so your business has fewer repetitive steps and a clearer customer journey.</p><div className="hero-actions"><button className="primary-action" type="button" onClick={() => navigate('projects')}>Explore projects</button><button className="secondary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></div><aside className="hero-proof" aria-label="Portfolio summary"><span className="card-kicker">PORTFOLIO AT A GLANCE</span><h3>Built to show the work.</h3><div className="proof-stats"><div><strong>{projects.length}</strong><span>Workflow demos</span></div><div><strong>4</strong><span>Platforms</span></div><div><strong>5</strong><span>Credentials</span></div></div><p>Hands-on automation projects built with sample data and clear workflow logic.</p></aside></section>
+    <FeaturedCaseStudies projects={featuredProjects} onProject={onProject} />
     <section className="tool-rail" aria-label="Automation platforms"><div className="tool-rail-label"><span>CORE TOOLKIT</span><strong>Platforms I build with</strong></div><div className="tool-rail-marquee"><div className="tool-rail-track">{[...platforms, ...platforms, ...platforms].map((item, index) => <div className={`tool-logo ${item.className}`} key={`${item.name}-${index}`} aria-hidden={index >= platforms.length}><img src={item.logo} alt={index < platforms.length ? item.name : ''} /></div>)}</div></div></section>
     <section className="supporting-tools" aria-labelledby="supporting-tools-title">
       <div className="supporting-tools-copy">
@@ -219,18 +221,8 @@ function HomeView({ navigate, onProject }: { navigate: (view: View) => void; onP
       <ToolDock items={supportingTools} />
     </section>
     <section className="bento-grid" aria-label="Portfolio overview">
-      <button className="bento-card featured-card" type="button" onClick={() => onProject(featured)}>
-        <div className="card-copy">
-          <span className="featured-badge"><i /> FEATURED N8N CASE STUDY</span>
-          <h3>AI-Powered Lead Reactivation</h3>
-          <p>Personalized outreach, reply classification, CRM updates, safeguards, and human handoff.</p>
-          <div className="featured-value-tags" aria-label="Project capabilities"><span>AI reply handling</span><span>CRM updates</span><span>Human handoff</span></div>
-          <span className="card-link featured-cta">Explore the workflow <ChevronRight /></span>
-        </div>
-        <div className="featured-image"><span>LIVE WORKFLOW PREVIEW</span><img src={featured.image} alt="AI-powered lead reactivation workflow" /></div>
-      </button>
-      <button className="bento-card experience-card" type="button" onClick={() => navigate('experience')}><span className="card-icon"><BriefcaseBusiness /></span><span className="card-kicker">CONTRACT EXPERIENCE</span><h3>40+ workflows built and tested.</h3><p>Automation Logic Specialist at Postwork Labs, a US startup company, building workflows for AI training.</p><div className="mini-platforms"><span>Zapier</span><span>Make</span><span>n8n</span></div><span className="card-link">Explore my experience <ChevronRight /></span></button>
-      <button className="bento-card projects-card" type="button" onClick={() => navigate('projects')}><span className="card-icon"><FolderKanban /></span><span className="card-kicker">PROJECT LIBRARY</span><strong className="big-number">19</strong><h3>Workflow demonstrations</h3><div className="mini-platforms"><span>n8n</span><span>Make</span><span>Zapier</span><span>GHL</span></div></button>
+      <button className="bento-card experience-card" type="button" onClick={() => navigate('experience')}><span className="card-icon"><BriefcaseBusiness /></span><span className="card-kicker">CONTRACT EXPERIENCE</span><h3>40+ workflows built and tested.</h3><p>Automation Logic Specialist on contract, translating requirements into workflows, integrations, and tested results.</p><div className="mini-platforms"><span>Zapier</span><span>Make</span><span>n8n</span></div><span className="card-link">Explore my experience <ChevronRight /></span></button>
+      <button className="bento-card projects-card" type="button" onClick={() => navigate('projects')}><span className="card-icon"><FolderKanban /></span><span className="card-kicker">PROJECT LIBRARY</span><strong className="big-number">{projects.length}</strong><h3>Workflow demonstrations</h3><div className="mini-platforms"><span>n8n</span><span>Make</span><span>Zapier</span><span>GHL</span></div></button>
       <button className="bento-card services-card" type="button" onClick={() => navigate('services')}><span className="card-icon"><Layers3 /></span><span className="card-kicker">SERVICES</span><h3>What I can build</h3><ol>{services.slice(0, 5).map((service, index) => <li key={service.title}><span>{service.title}</span><small>0{index + 1}</small></li>)}</ol></button>
       <button className="bento-card credentials-card" type="button" onClick={() => navigate('credentials')}><span className="card-icon"><Award /></span><span className="card-kicker">CREDENTIALS</span><h3>Training behind the work</h3><div className="cert-preview"><img src={n8nCert} alt="Complete n8n training certificate preview" /></div><span className="credential-card-link">View all credentials <ChevronRight /></span></button>
       <button className="bento-card contact-card" type="button" onClick={() => navigate('contact')}><span className="card-icon"><Mail /></span><span className="card-kicker">AVAILABLE FOR OPPORTUNITIES</span><h3>Have a process that needs simplifying?</h3><p>Let’s talk about the tools, handoffs, and repetitive steps in your workflow.</p></button>
@@ -246,34 +238,34 @@ function ProjectsView({ platform, setPlatform, projects: visibleProjects, onProj
 
 function ExperienceView({ navigate }: { navigate: (view: View) => void }) {
   const responsibilities = [
-    { icon: Workflow, title: 'Requirements into workflow logic', text: 'Translated detailed business briefs into multi-step workflows with conditional branches, lookup rules, and clear data handoffs.' },
-    { icon: Network, title: 'Data and tool connections', text: 'Cleaned and normalized inputs, applied formulas and JavaScript, and connected tools through REST APIs and webhooks.' },
-    { icon: Check, title: 'Testing and error handling', text: 'Tested normal and edge-case inputs, checked outputs between steps, and added review queues and alerts for incomplete data.' },
-    { icon: FolderKanban, title: 'AI-training materials', text: 'Created training materials—including screen recordings, computer interaction data, workflow blueprints, and documentation—to teach AI models how to use a computer.' },
+    { icon: Workflow, title: 'Workflow logic', text: 'Turned written requirements into multi-step workflows with conditional branches, lookup rules, and data handoffs.' },
+    { icon: Network, title: 'Data and API integrations', text: 'Cleaned and normalized inputs, applied formulas and JavaScript steps, and connected applications through REST APIs and webhooks.' },
+    { icon: Check, title: 'Testing and validation', text: 'Tested normal, missing-data, and invalid-input cases. Checked outputs between steps and compared results with project requirements.' },
+    { icon: FolderKanban, title: 'Exports and documentation', text: 'Prepared workflow exports and technical documentation so the configurations and results could be reviewed against project requirements.' },
   ];
 
   return <div className="view-shell experience-view">
-    <PageHeading eyebrow="EXPERIENCE" title="Business automation experience." text="Paid contract work creating business automation workflows and computer-use demonstrations for AI training." />
+    <PageHeading eyebrow="EXPERIENCE" title="Business automation experience." text="Contract workflow development, application integrations, testing, and technical documentation." />
     <article className="experience-engagement" aria-labelledby="experience-role">
       <div className="experience-summary">
         <div className="experience-label"><BriefcaseBusiness size={16} /><span>COMPLETED CONTRACT</span></div>
-        <h3 id="experience-role">Automation Logic Specialist</h3>
-        <p className="experience-company">Postwork Labs, Inc.</p>
-        <div className="experience-meta"><span>January–May 2026</span><span>US startup company · Remote</span></div>
-        <p className="experience-description">I worked with Postwork Labs to build and test 40+ end-to-end business automation workflows across Zapier, Make, and n8n for AI training. My recordings, computer interaction data, and workflow documentation helped teach AI models how to use a computer, navigate applications, and complete multi-step tasks.</p>
-        <div className="experience-stack" aria-label="Contract tools"><span>Zapier</span><span>Make</span><span>n8n</span><span>REST APIs</span><span>Webhooks</span><span>Google Workspace</span><span>Trello</span><span>Slack</span></div>
+        <h3 id="experience-role">Automation Logic Specialist — Contract</h3>
+        <div className="experience-meta"><span>January–May 2026</span></div>
+        <p className="experience-description">Built and tested 40+ business automation workflows across Zapier, Make, and n8n. Translated written requirements into workflow logic, data transformations, and application integrations. Tested normal and edge-case inputs and prepared workflow exports and technical documentation for review.</p>
+        <div className="experience-stack" aria-label="Contract tools"><span>Zapier</span><span>Make</span><span>n8n</span><span>REST APIs</span><span>Webhooks</span></div>
       </div>
       <aside className="experience-scope" aria-label="Contract scope">
         <div><strong>40+</strong><span>Workflows built and tested</span></div>
         <div><strong>3</strong><span>Automation platforms</span></div>
-        <p>This count describes my contract workflows. The Projects section separately showcases 19 personal demonstrations built with sample data.</p>
+        <p>This count describes my contract workflows. Personal demonstrations are listed separately in the Projects section.</p>
       </aside>
     </article>
+    <p className="experience-confidentiality"><strong>Confidentiality note:</strong> Internal project details and deliverables are kept private. Portfolio examples are independent demonstrations built with sample data.</p>
     <section className="experience-responsibilities" aria-labelledby="experience-work-heading">
       <div className="experience-section-heading"><span className="card-kicker">WHAT I DELIVERED</span><h3 id="experience-work-heading">From requirements to tested workflows.</h3></div>
       <div className="experience-work-grid">{responsibilities.map(item => { const Icon = item.icon; return <article className="experience-work-card" key={item.title}><span className="card-icon"><Icon /></span><h4>{item.title}</h4><p>{item.text}</p></article>; })}</div>
     </section>
-    <div className="wide-cta"><div><span>EXPLORE THE WORK</span><h3>See how I approach automation.</h3></div><div className="experience-actions"><button className="secondary-action" type="button" onClick={() => navigate('projects')}>View portfolio projects</button><button className="primary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></div>
+    <div className="wide-cta"><div className="experience-demo-copy"><span>INDEPENDENT DEMONSTRATIONS</span><h3>Explore my approach in practice.</h3><p>My personal projects use sample data to demonstrate workflow logic, integrations, and data handling. They are separate from the contract work described above.</p></div><div className="experience-actions"><button className="secondary-action" type="button" onClick={() => navigate('projects')}>Explore demo projects</button><button className="primary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></div>
   </div>;
 }
 
