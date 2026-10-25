@@ -63,7 +63,7 @@ function DockTile({ item, index, count, pointer, layout, still }: {
     <motion.li
       className="support-tool-slot"
       style={{ zIndex: count - index, marginLeft: index === 0 ? 0 : 'calc(var(--support-dock-size) * -0.08)' }}
-      initial={still ? false : { opacity: 0, y: 10, scale: 0.94 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: still ? 0 : 0.5, delay: still ? 0 : index * 0.035 }}

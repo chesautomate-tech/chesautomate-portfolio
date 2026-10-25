@@ -5,7 +5,9 @@ import {
   Puzzle, Sparkles, Workflow, X,
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
-import ProjectDialog from '@/components/ProjectDialog';
+import ProjectPage from '@/components/ProjectPage';
+import { resolveRoute, viewPath, projectPath, updatePageMetadata, views, type View } from '@/lib/site';
+import { followInternalLink } from '@/lib/navigation';
 import FeaturedCaseStudies from '@/components/FeaturedCaseStudies';
 import { ToolDock, type ToolDockItem } from '@/components/ui/ToolDock';
 import { Platform, Project, projects } from '@/data/projects';
@@ -33,7 +35,6 @@ import promptCert from '@/assets/certificates/prompt-engineering-cert.png';
 import '@/dashboard.css';
 import '@/experience.css';
 
-type View = 'home' | 'projects' | 'experience' | 'services' | 'credentials' | 'about' | 'contact';
 
 const emailAddress = 'chesautomate@gmail.com';
 const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=chesautomate@gmail.com&su=Portfolio%20Inquiry';
@@ -49,37 +50,6 @@ const navigation: { id: View; label: string; icon: typeof Home }[] = [
   { id: 'about', label: 'About', icon: CircleUserRound },
   { id: 'contact', label: 'Contact', icon: Mail },
 ];
-
-const viewMetadata: Record<View, { title: string; description: string }> = {
-  home: {
-    title: 'CRM & AI Automation Specialist | Chester Wapanio',
-    description: 'Explore Chester Wapanio’s CRM and AI automation portfolio featuring practical sample workflows built with GoHighLevel, n8n, Make, and Zapier.',
-  },
-  projects: {
-    title: 'Automation Projects | n8n, Make, Zapier & GoHighLevel',
-    description: 'Explore sample CRM and AI automation workflows by Chester Wapanio, including lead reactivation, data pipelines, content repurposing, and follow-up systems.',
-  },
-  experience: {
-    title: 'Work Experience | Chester Wapanio',
-    description: 'Chester Wapanio’s Automation Logic Specialist contract experience, January–May 2026: 40+ workflows built and tested across Zapier, Make, and n8n.',
-  },
-  services: {
-    title: 'CRM & Workflow Automation Services | Chester Wapanio',
-    description: 'CRM setup, workflow automation, AI-assisted processes, API integrations, data transformation, and multi-platform synchronization.',
-  },
-  credentials: {
-    title: 'Automation Training & Credentials | Chester Wapanio',
-    description: 'View Chester Wapanio’s training in GoHighLevel, n8n, Make, Zapier, prompt engineering, and AI automation.',
-  },
-  about: {
-    title: 'About Chester Wapanio | CRM & AI Automation Specialist',
-    description: 'Learn about Chester Wapanio, a CRM and AI Automation Specialist based in Bohol, Philippines and available for remote opportunities.',
-  },
-  contact: {
-    title: 'Contact Chester Wapanio | Automation Specialist',
-    description: 'Contact Chester Wapanio about CRM automation, AI workflows, freelance projects, and remote team opportunities.',
-  },
-};
 
 const platforms: { name: Platform; logo: string; className: string }[] = [
   { name: 'n8n', logo: n8nLogo, className: 'n8n' },
@@ -119,41 +89,48 @@ const certificates = [
   { title: 'Prompt Engineering', platform: 'AI Skills', image: promptCert },
 ];
 
-const viewFromHash = (): View => {
-  const value = window.location.hash.replace('#', '') as View;
-  return navigation.some(item => item.id === value) ? value : 'home';
-};
-
-export default function Index() {
-  const [view, setView] = useState<View>(viewFromHash);
+export default function Index({ initialPath = '/' }: { initialPath?: string }) {
+  const [path, setPath] = useState(initialPath);
+  const { view, project: routeProject, notFound } = resolveRoute(path);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedCertificate, setSelectedCertificate] = useState<(typeof certificates)[number] | null>(null);
   const [emailDialogOpen, setEmailDialogOpen] = useState(false);
   const [platform, setPlatform] = useState<'All' | Platform>('All');
 
   useEffect(() => {
-    const onHashChange = () => setView(viewFromHash());
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
+    const syncLocation = () => {
+      const legacyView = window.location.hash.slice(1) as View;
+      if (views.includes(legacyView)) {
+        const next = viewPath(legacyView);
+        window.history.replaceState(null, '', next);
+        setPath(next);
+      } else {
+        setPath(window.location.pathname);
+      }
+      setMenuOpen(false);
+    };
+    syncLocation();
+    window.addEventListener('popstate', syncLocation);
+    window.addEventListener('hashchange', syncLocation);
+    return () => {
+      window.removeEventListener('popstate', syncLocation);
+      window.removeEventListener('hashchange', syncLocation);
+    };
   }, []);
 
-  useEffect(() => {
-    const metadata = viewMetadata[view];
-    document.title = metadata.title;
-    document.querySelector('meta[name="description"]')?.setAttribute('content', metadata.description);
-    document.querySelector('meta[property="og:title"]')?.setAttribute('content', metadata.title);
-    document.querySelector('meta[property="og:description"]')?.setAttribute('content', metadata.description);
-    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', metadata.title);
-    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', metadata.description);
-  }, [view]);
+  useEffect(() => { updatePageMetadata(path); }, [path]);
 
-  const navigate = (next: View) => {
-    window.location.hash = next;
-    setView(next);
+  const navigateTo = (next: string) => {
+    window.history.pushState(null, '', next);
+    setPath(next);
     setMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    requestAnimationFrame(() => {
+      document.getElementById('dashboard-main')?.focus({ preventScroll: true });
+      window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
   };
+  const navigate = (next: View) => navigateTo(viewPath(next));
+  const openProject = (project: Project) => navigateTo(projectPath(project));
 
   const filteredProjects = useMemo(
     () => platform === 'All' ? projects : projects.filter(project => project.platform === platform),
@@ -166,7 +143,7 @@ export default function Index() {
       <aside className={`profile-sidebar ${menuOpen ? 'is-open' : ''}`}>
         <div className="profile-block">
           <img className="profile-photo" src={profile} alt="Chester Wapanio" />
-          <div><h1>Chester Wapanio</h1><p>CRM & AI Automation Specialist</p></div>
+          <div><p className="profile-name">Chester Wapanio</p><p>CRM & AI Automation Specialist</p></div>
           <button className="mobile-menu-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation" aria-expanded={menuOpen}>{menuOpen ? <X /> : <Menu />}</button>
         </div>
         <div className="profile-location"><MapPin size={16} /> Bohol, Philippines · Remote</div>
@@ -178,22 +155,23 @@ export default function Index() {
         </div>
         <div className="sidebar-rule" />
         <nav className="sidebar-nav" aria-label="Portfolio sections">
-          {navigation.map(item => { const Icon = item.icon; return <a key={item.id} href={`#${item.id}`} className={view === item.id ? 'active' : ''} onClick={(event) => { event.preventDefault(); navigate(item.id); }}><Icon /><span>{item.label}</span></a>; })}
+          {navigation.map(item => { const Icon = item.icon; return <a key={item.id} href={viewPath(item.id)} className={view === item.id ? 'active' : ''} aria-current={view === item.id && !notFound ? 'page' : undefined} onClick={event => followInternalLink(event, () => navigate(item.id))}><Icon /><span>{item.label}</span></a>; })}
         </nav>
         <p className="sidebar-foot">© 2026 Chester Wapanio</p>
       </aside>
 
-      <main id="dashboard-main" className="dashboard-main">
-        {view === 'home' && <HomeView navigate={navigate} onProject={setSelectedProject} />}
-        {view === 'projects' && <ProjectsView platform={platform} setPlatform={setPlatform} projects={filteredProjects} onProject={setSelectedProject} />}
+      <main id="dashboard-main" className="dashboard-main" tabIndex={-1}>
+        {notFound ? <div className="view-shell"><PageHeading eyebrow="404" title="This page isn’t here." text="Explore my automation projects, services and experience from the portfolio." /><a className="primary-action" href="/" onClick={event => followInternalLink(event, () => navigate('home'))}>Back to home</a></div> : routeProject ? <ProjectPage project={routeProject} onBack={() => navigate('projects')} onDiscuss={() => navigate('contact')} /> : <>
+        {view === 'home' && <HomeView navigate={navigate} onProject={openProject} />}
+        {view === 'projects' && <ProjectsView platform={platform} setPlatform={setPlatform} projects={filteredProjects} onProject={openProject} />}
         {view === 'experience' && <ExperienceView navigate={navigate} />}
         {view === 'services' && <ServicesView navigate={navigate} />}
         {view === 'credentials' && <CredentialsView onCertificate={setSelectedCertificate} />}
         {view === 'about' && <AboutView navigate={navigate} />}
         {view === 'contact' && <ContactView onEmail={() => setEmailDialogOpen(true)} />}
+        </>}
       </main>
 
-      <ProjectDialog project={selectedProject} onClose={() => setSelectedProject(null)} onDiscuss={() => { setSelectedProject(null); navigate('contact'); }} />
       <Dialog open={!!selectedCertificate} onOpenChange={(open) => { if (!open) setSelectedCertificate(null); }}>
         <DialogContent className="dashboard-certificate-dialog">{selectedCertificate && <><DialogTitle>{selectedCertificate.title}</DialogTitle><DialogDescription>{selectedCertificate.platform} · Training certificate</DialogDescription><img src={selectedCertificate.image} alt={`${selectedCertificate.title} certificate`} /><a href={selectedCertificate.image} target="_blank" rel="noreferrer">Open full-resolution certificate <ExternalLink size={15} /></a></>}</DialogContent>
       </Dialog>
@@ -203,13 +181,13 @@ export default function Index() {
 }
 
 function PageHeading({ eyebrow, title, text }: { eyebrow: string; title: string; text: string }) {
-  return <header className="page-heading"><span>{eyebrow}</span><h2>{title}</h2><p>{text}</p></header>;
+  return <header className="page-heading"><span>{eyebrow}</span><h1>{title}</h1><p>{text}</p></header>;
 }
 
 function HomeView({ navigate, onProject }: { navigate: (view: View) => void; onProject: (project: Project) => void }) {
   const featuredProjects = projects.filter(project => project.featured);
   return <div className="view-shell home-view">
-    <section className="home-intro"><div className="intro-copy"><span className="availability-badge"><i /> Open to freelance and team opportunities</span><span className="eyebrow">CRM · AUTOMATION · AI</span><h2>Automation systems that keep <span>leads moving.</span></h2><p>I connect your tools, organize your leads, and automate the follow-up—so your business has fewer repetitive steps and a clearer customer journey.</p><div className="hero-actions"><button className="primary-action" type="button" onClick={() => navigate('projects')}>Explore projects</button><button className="secondary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></div><aside className="hero-proof" aria-label="Portfolio summary"><span className="card-kicker">PORTFOLIO AT A GLANCE</span><h3>Built to show the work.</h3><div className="proof-stats"><div><strong>{projects.length}</strong><span>Workflow demos</span></div><div><strong>4</strong><span>Platforms</span></div><div><strong>5</strong><span>Credentials</span></div></div><p>Hands-on automation projects built with sample data and clear workflow logic.</p></aside></section>
+    <section className="home-intro"><div className="intro-copy"><span className="availability-badge"><i /> Open to freelance and team opportunities</span><span className="eyebrow">CRM · AUTOMATION · AI</span><h1>Automation systems that keep <span>leads moving.</span></h1><p>I connect your tools, organize your leads, and automate the follow-up—so your business has fewer repetitive steps and a clearer customer journey.</p><div className="hero-actions"><a className="primary-action" href="/projects/" onClick={event => followInternalLink(event, () => navigate('projects'))}>Explore projects</a><a className="secondary-action" href="/contact/" onClick={event => followInternalLink(event, () => navigate('contact'))}>Discuss your workflow</a></div></div><aside className="hero-proof" aria-label="Portfolio summary"><span className="card-kicker">PORTFOLIO AT A GLANCE</span><h3>Built to show the work.</h3><div className="proof-stats"><div><strong>{projects.length}</strong><span>Workflow demos</span></div><div><strong>4</strong><span>Platforms</span></div><div><strong>5</strong><span>Credentials</span></div></div><p>Hands-on automation projects built with sample data and clear workflow logic.</p></aside></section>
     <FeaturedCaseStudies projects={featuredProjects} onProject={onProject} />
     <section className="tool-rail" aria-label="Automation platforms"><div className="tool-rail-label"><span>CORE TOOLKIT</span><strong>Platforms I build with</strong></div><div className="tool-rail-marquee"><div className="tool-rail-track">{[...platforms, ...platforms, ...platforms].map((item, index) => <div className={`tool-logo ${item.className}`} key={`${item.name}-${index}`} aria-hidden={index >= platforms.length}><img src={item.logo} alt={index < platforms.length ? item.name : ''} /></div>)}</div></div></section>
     <section className="supporting-tools" aria-labelledby="supporting-tools-title">
@@ -221,7 +199,7 @@ function HomeView({ navigate, onProject }: { navigate: (view: View) => void; onP
       <ToolDock items={supportingTools} />
     </section>
     <section className="bento-grid" aria-label="Portfolio overview">
-      <button className="bento-card experience-card" type="button" onClick={() => navigate('experience')}><span className="card-icon"><BriefcaseBusiness /></span><span className="card-kicker">CONTRACT EXPERIENCE</span><h3>40+ workflows built and tested.</h3><p>Automation Logic Specialist on contract, translating requirements into workflows, integrations, and tested results.</p><div className="mini-platforms"><span>Zapier</span><span>Make</span><span>n8n</span></div><span className="card-link">Explore my experience <ChevronRight /></span></button>
+      <button className="bento-card experience-card" type="button" onClick={() => navigate('experience')}><span className="card-icon"><BriefcaseBusiness /></span><span className="card-kicker">CONTRACT EXPERIENCE</span><h3>50+ workflows built and tested.</h3><p>Automation Logic Specialist on contract, translating requirements into workflows, integrations, and tested results.</p><div className="mini-platforms"><span>Zapier</span><span>Make</span><span>n8n</span></div><span className="card-link">Explore my experience <ChevronRight /></span></button>
       <button className="bento-card projects-card" type="button" onClick={() => navigate('projects')}><span className="card-icon"><FolderKanban /></span><span className="card-kicker">PROJECT LIBRARY</span><strong className="big-number">{projects.length}</strong><h3>Workflow demonstrations</h3><div className="mini-platforms"><span>n8n</span><span>Make</span><span>Zapier</span><span>GHL</span></div></button>
       <button className="bento-card services-card" type="button" onClick={() => navigate('services')}><span className="card-icon"><Layers3 /></span><span className="card-kicker">SERVICES</span><h3>What I can build</h3><ol>{services.slice(0, 5).map((service, index) => <li key={service.title}><span>{service.title}</span><small>0{index + 1}</small></li>)}</ol></button>
       <button className="bento-card credentials-card" type="button" onClick={() => navigate('credentials')}><span className="card-icon"><Award /></span><span className="card-kicker">CREDENTIALS</span><h3>Training behind the work</h3><div className="cert-preview"><img src={n8nCert} alt="Complete n8n training certificate preview" /></div><span className="credential-card-link">View all credentials <ChevronRight /></span></button>
@@ -233,7 +211,7 @@ function HomeView({ navigate, onProject }: { navigate: (view: View) => void; onP
 
 function ProjectsView({ platform, setPlatform, projects: visibleProjects, onProject }: { platform: 'All' | Platform; setPlatform: (platform: 'All' | Platform) => void; projects: Project[]; onProject: (project: Project) => void }) {
   const filters: ('All' | Platform)[] = ['All', 'n8n', 'Make', 'Zapier', 'GoHighLevel'];
-  return <div className="view-shell"><PageHeading eyebrow="PROJECTS" title="Workflow logic you can explore." text="A collection of personal automation demonstrations built with sample data. Open any project to see the workflow at full size." /><div className="project-filters" role="group" aria-label="Filter projects by platform">{filters.map(filter => <button type="button" key={filter} className={platform === filter ? 'active' : ''} onClick={() => setPlatform(filter)}>{filter}</button>)}</div><div className="dashboard-project-grid">{visibleProjects.map(project => <button className="dashboard-project-card" type="button" key={`${project.platform}-${project.title}`} onClick={() => onProject(project)}><div className="project-image"><img src={project.image} alt={`${project.title} workflow`} loading="lazy" /></div><div className="project-card-body"><span>{project.platform}</span><h3>{project.title}</h3><p>{project.description || 'A personal workflow demonstration exploring connected automation logic.'}</p><small>View workflow <ChevronRight /></small></div></button>)}</div></div>;
+  return <div className="view-shell"><PageHeading eyebrow="PROJECTS" title="Workflow logic you can explore." text="A collection of personal automation demonstrations built with sample data. Open any project to see the workflow at full size." /><div className="project-filters" role="group" aria-label="Filter projects by platform">{filters.map(filter => <button type="button" key={filter} className={platform === filter ? 'active' : ''} onClick={() => setPlatform(filter)}>{filter}</button>)}</div><div className="dashboard-project-grid">{visibleProjects.map(project => <a className="dashboard-project-card" href={projectPath(project)} key={`${project.platform}-${project.title}`} onClick={event => followInternalLink(event, () => onProject(project))}><div className="project-image"><img src={project.image} alt={`${project.title} workflow`} loading="lazy" /></div><div className="project-card-body"><span>{project.platform}</span><h3>{project.title}</h3><p>{project.description || 'A personal workflow demonstration exploring connected automation logic.'}</p><small>View workflow <ChevronRight /></small></div></a>)}</div></div>;
 }
 
 function ExperienceView({ navigate }: { navigate: (view: View) => void }) {
@@ -251,11 +229,11 @@ function ExperienceView({ navigate }: { navigate: (view: View) => void }) {
         <div className="experience-label"><BriefcaseBusiness size={16} /><span>COMPLETED CONTRACT</span></div>
         <h3 id="experience-role">Automation Logic Specialist — Contract</h3>
         <div className="experience-meta"><span>January–May 2026</span></div>
-        <p className="experience-description">Built and tested 40+ business automation workflows across Zapier, Make, and n8n. Translated written requirements into workflow logic, data transformations, and application integrations. Tested normal and edge-case inputs and prepared workflow exports and technical documentation for review.</p>
+        <p className="experience-description">Built and tested 50+ business automation workflows across Zapier, Make, and n8n. Translated written requirements into workflow logic, data transformations, and application integrations. Tested normal and edge-case inputs and prepared workflow exports and technical documentation for review.</p>
         <div className="experience-stack" aria-label="Contract tools"><span>Zapier</span><span>Make</span><span>n8n</span><span>REST APIs</span><span>Webhooks</span></div>
       </div>
       <aside className="experience-scope" aria-label="Contract scope">
-        <div><strong>40+</strong><span>Workflows built and tested</span></div>
+        <div><strong>50+</strong><span>Workflows built and tested</span></div>
         <div><strong>3</strong><span>Automation platforms</span></div>
         <p>This count describes my contract workflows. Personal demonstrations are listed separately in the Projects section.</p>
       </aside>

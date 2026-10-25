@@ -1,0 +1,33 @@
+.project-page { min-width: 0; }
+.project-back { display: inline-flex; align-items: center; gap: 9px; color: #ffcd75; font-size: 16px; margin-bottom: 28px; }
+.project-page-heading { padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid #ffcd7530; }
+.project-page-heading h1 { font-size: clamp(2rem, 4vw, 3.5rem); color: #fafafa; line-height: 1.08; letter-spacing: -.045em; font-weight: 800; margin: 14px 0; overflow-wrap: anywhere; }
+.project-page-heading p, .project-page-content p { color: #a1a1aa; font-size: 16px; line-height: 1.75; margin: 0; }
+.project-page-content { display: grid; gap: 30px; }
+.project-page-content .project-page-intro { font-size: 18px; max-width: 68ch; }
+.project-page h2 { color: #fafafa; font-size: 24px; line-height: 1.25; font-weight: 750; margin: 0 0 12px; }
+.project-page-tools { display: flex; flex-wrap: wrap; gap: 9px; margin: 0; padding: 0; list-style: none; }
+.project-page-tools li { color: #ffcd75; background: #ffcd750c; border: 1px solid #ffcd7530; border-radius: 8px; padding: 7px 12px; font-size: 14px; }
+.project-page-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.project-page-summary > div, .project-page-scope { background: #181818; border: 1px solid #ffcd7526; border-radius: 18px; padding: 24px; }
+.project-page-diagram > a { display: block; margin-top: 18px; border: 1px solid #ffcd7530; border-radius: 14px; overflow: hidden; background: #111; }
+.project-page-diagram img { width: 100%; height: auto; }
+.project-page-diagram a > span { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 20px; background: #1c1b1b; color: #ffcd75; font-size: 15px; }
+.project-page-steps ol { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.project-page-steps li { display: flex; gap: 12px; color: #a1a1aa; font-size: 16px; line-height: 1.65; }
+.project-page-steps svg { color: #ffcd75; flex-shrink: 0; margin-top: 4px; }
+.project-page-contact { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 40px; padding-top: 28px; border-top: 1px solid #ffcd7530; }
+.project-page-contact h2 { margin-top: 10px; }
+.project-page-contact .primary-action { display: inline-flex; align-items: center; gap: 12px; }
+.project-page .project-dialog-body.northline-case { max-height: none; overflow: visible; padding: 0; background: transparent; }
+.project-page .northline-case p { color: #b4b4bc; font-size: 15px; line-height: 1.75; }
+.project-page .northline-case .full-canvas { border-color: #ffcd7530; background: #111; }
+.project-page .northline-case .full-canvas > span { color: #ffcd75; background: #1c1b1b; font-size: 14px; }
+.project-page .northline-cta { display: none; }
+@media(max-width: 1000px) { .project-page-summary { grid-template-columns: 1fr; } }
+@media(max-width: 640px) {
+  .project-page-heading { padding-bottom: 22px; margin-bottom: 22px; }
+  .project-page-summary > div, .project-page-scope { padding: 20px; }
+  .project-page-contact { align-items: flex-start; flex-direction: column; }
+  .project-page-diagram a > span { padding: 14px; }
+}

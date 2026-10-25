@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Project } from '@/data/projects';
+import { projectPath } from '@/lib/site';
+import { followInternalLink } from '@/lib/navigation';
 import './featured-case-studies.css';
 
 export default function FeaturedCaseStudies({ projects, onProject }: { projects: Project[]; onProject: (project: Project) => void }) {
@@ -34,12 +36,12 @@ export default function FeaturedCaseStudies({ projects, onProject }: { projects:
           <h3>{project.title}</h3>
           <p>{project.description}</p>
           <div className="featured-value-tags" aria-label="Project highlights">{highlights.map(highlight => <span key={highlight}>{highlight}</span>)}</div>
-          <button className="featured-showcase-open" type="button" onClick={() => onProject(project)}>View case study <ChevronRight size={16} aria-hidden="true" /></button>
+          <a className="featured-showcase-open" href={projectPath(project)} onClick={event => followInternalLink(event, () => onProject(project))}>View case study <ChevronRight size={16} aria-hidden="true" /></a>
         </div>
-        <button className="featured-showcase-preview" type="button" aria-label={`Open ${project.title} case study`} onClick={() => onProject(project)}>
+        <a className="featured-showcase-preview" href={projectPath(project)} aria-label={`Open ${project.title} case study`} onClick={event => followInternalLink(event, () => onProject(project))}>
           <img src={project.image} alt={`${project.title} workflow diagram`} />
           <span>{project.caseStudy === 'northline' ? '4 workflows for booking setup, checks and approvals' : 'Explore the workflow and how it works'}<ChevronRight size={15} aria-hidden="true" /></span>
-        </button>
+        </a>
       </article>
       {projects.length > 1 && <div className="featured-showcase-dots" aria-label="Choose a featured case study">{projects.map((item, itemIndex) => <button key={item.title} type="button" aria-label={`Show ${item.title}`} aria-current={itemIndex === index ? 'true' : undefined} onClick={() => setIndex(itemIndex)}><span /></button>)}</div>}
     </section>

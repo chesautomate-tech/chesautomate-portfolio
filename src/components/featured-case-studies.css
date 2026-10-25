@@ -9,6 +9,24 @@
 .featured-showcase-copy > p { color: #a1a1aa; font-size: 14px; line-height: 1.6; margin: 0; }
 .featured-showcase-open { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; padding: 11px 14px; border: 0; border-radius: 10px; color: #17130c; background: #ffcd75; font-size: 13px; font-weight: 750; cursor: pointer; }
 .featured-showcase-open:hover { background: #ffdb99; }
+/* Keep the button still; animate only composited halo and outline layers. */
+.featured-showcase-open { position: relative; isolation: isolate; box-shadow: 0 0 0 1px #ffe3ab,0 0 12px #ffcd7540; }
+.featured-showcase-open::before,
+.featured-showcase-open::after { content: ''; position: absolute; inset: -2px; z-index: -1; border-radius: inherit; pointer-events: none; will-change: transform,opacity; }
+.featured-showcase-open::before { box-shadow: 0 0 18px 6px #ffcd7573; animation: case-study-glow 1.8s ease-in-out infinite; }
+.featured-showcase-open::after { border: 2px solid #ffe3ab; animation: case-study-ripple 1.8s cubic-bezier(.2,.6,.3,1) infinite; }
+@keyframes case-study-glow {
+  0%,100% { transform: scale(1); opacity: .35; }
+  50% { transform: scale(1.04,1.15); opacity: .9; }
+}
+@keyframes case-study-ripple {
+  0% { transform: scale(1); opacity: .85; }
+  75%,100% { transform: scale(1.16,1.5); opacity: 0; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .featured-showcase-open { box-shadow: 0 0 0 1px #ffe3ab,0 0 18px 3px #ffcd7533; }
+  .featured-showcase-open::before,.featured-showcase-open::after { display: none; animation: none; will-change: auto; }
+}
 .featured-showcase-preview { min-width: 0; padding: 0; overflow: hidden; border: 1px solid rgba(255,255,255,.1); border-radius: 13px; background: #111; text-align: left; cursor: pointer; }
 .featured-showcase-preview img { display: block; width: 100%; height: 240px; object-fit: contain; }
 .featured-showcase-preview > span { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 14px; min-height: 42px; background: #22201d; color: #ffcd75; font-size: 11px; line-height: 1.5; }
