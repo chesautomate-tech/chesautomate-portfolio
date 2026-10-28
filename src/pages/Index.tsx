@@ -228,7 +228,6 @@ function ExperienceView({ navigate }: { navigate: (view: View) => void }) {
       <div className="experience-summary">
         <div className="experience-label"><BriefcaseBusiness size={16} /><span>COMPLETED CONTRACT</span></div>
         <h3 id="experience-role">Automation Logic Specialist — Contract</h3>
-        <div className="experience-meta"><span>January–May 2026</span></div>
         <p className="experience-description">Built and tested 50+ business automation workflows across Zapier, Make, and n8n. Translated written requirements into workflow logic, data transformations, and application integrations. Tested normal and edge-case inputs and prepared workflow exports and technical documentation for review.</p>
         <div className="experience-stack" aria-label="Contract tools"><span>Zapier</span><span>Make</span><span>n8n</span><span>REST APIs</span><span>Webhooks</span></div>
       </div>
