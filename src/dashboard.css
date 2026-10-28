@@ -141,3 +141,14 @@
 .primary-action,.secondary-action{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
 .dashboard-project-card{display:block;text-decoration:none}
 .featured-showcase a:focus-visible{outline:2px solid #ffcd75;outline-offset:3px}
+
+/* Avoid blur seams as contact cards move over the page background. */
+.contact-grid > a,
+.contact-grid > button {
+  backdrop-filter: none;
+  transition-property: transform, border-color;
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-grid > a,
+  .contact-grid > button { transition: none; }
+}

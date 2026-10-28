@@ -9,7 +9,7 @@ export const projectPath = (project: Project) => `/projects/${project.title.toLo
 
 const viewMetadata: Record<View, { title: string; description: string }> = {
   home: { title: 'CRM & AI Automation Specialist | Chester Wapanio', description: 'Chester Wapanio builds CRM and AI workflows with n8n, Make, Zapier and GoHighLevel. Explore his projects and experience for client work, agency collaboration and employment.' },
-  projects: { title: 'Automation Projects | Chester Wapanio', description: 'Explore sample-data automation projects, including Northline booking automation and AI-powered lead reactivation. See the business problems, tools and workflow logic.' },
+  projects: { title: 'Automation Projects | Chester Wapanio', description: 'Explore ClearNest’s AI receptionist, Northline booking automation and AI-powered lead reactivation. See how each demo turns manual work into a clear next step.' },
   experience: { title: 'Automation Work Experience | Chester Wapanio', description: 'Automation Logic Specialist contract experience, January–May 2026: 50+ workflows built and tested across Zapier, Make and n8n, plus integrations and documentation.' },
   services: { title: 'CRM & Workflow Automation Services | Chester Wapanio', description: 'CRM and lead management, workflow automation, AI-assisted processes, API integrations, data transformation and multi-platform synchronization.' },
   credentials: { title: 'Automation Training & Credentials | Chester Wapanio', description: 'View Chester Wapanio’s training in GoHighLevel, n8n, Make, Zapier and prompt engineering.' },

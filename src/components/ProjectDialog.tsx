@@ -38,7 +38,7 @@ export default function ProjectDialog({ project, onClose, onDiscuss }: { project
               <DialogDescription>{project.caseStudy === 'northline' ? 'A portfolio project for Northline, a fictional event services company.' : 'Personal portfolio demonstration built with sample data'}</DialogDescription>
             </header>
 
-            {project.caseStudy === 'northline' ? <NorthlineCaseStudy onDiscuss={onDiscuss} /> : <div className="project-dialog-body">
+            {project.caseStudy === 'northline' ? <NorthlineCaseStudy /> : <div className="project-dialog-body">
               <section className="project-dialog-overview">
                 <a className="full-canvas" href={project.image} target="_blank" rel="noopener noreferrer">
                   <img src={project.image} alt={`${project.title} — complete workflow`} />

@@ -32,6 +32,11 @@
 .featured-showcase-preview > span { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 14px; min-height: 42px; background: #22201d; color: #ffcd75; font-size: 11px; line-height: 1.5; }
 .featured-showcase-preview svg { flex-shrink: 0; }
 .featured-showcase-preview:hover { border-color: rgba(255,205,117,.45); }
+.featured-showcase-video { cursor: default; }
+.featured-showcase-video iframe { display: block; width: 100%; height: 190px; border: 0; }
+.featured-video-caption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; min-height: 42px; padding: 12px 14px; background: #22201d; color: #ffcd75; font-size: 11px; line-height: 1.5; }
+.featured-video-caption > span { white-space: nowrap; }
+.featured-video-caption:focus-visible { outline: 2px solid #ffcd75; outline-offset: -3px; }
 .featured-nav { position: absolute; top: 50%; z-index: 1; display: grid; place-items: center; width: 44px; height: 48px; padding: 0; border: 1px solid rgba(255,205,117,.24); border-radius: 12px; color: #ffcd75; background: #25221c; cursor: pointer; transform: translateY(-50%); }
 .featured-nav-previous { left: 10px; }
 .featured-nav-next { right: 10px; }
