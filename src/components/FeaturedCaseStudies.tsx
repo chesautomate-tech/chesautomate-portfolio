@@ -10,7 +10,9 @@ export default function FeaturedCaseStudies({ projects, onProject }: { projects:
   if (!projects.length) return null;
 
   const project = projects[index % projects.length];
-  const move = (direction: number) => setIndex(current => (current + direction + projects.length) % projects.length);
+  const move = (direction: number) => setIndex(current => direction < 0
+    ? Math.max(0, current - 1)
+    : (current + 1) % projects.length);
   const highlights = project.caseStudy === 'clearnest'
     ? ['Callbacks booked', 'Details saved', 'Owner notified']
     : project.caseStudy === 'northline'
@@ -31,7 +33,7 @@ export default function FeaturedCaseStudies({ projects, onProject }: { projects:
         <span className="featured-showcase-count" aria-live="polite" aria-atomic="true"><span className="sr-only">{project.title}. </span>{index + 1} of {projects.length}</span>
       </div>
       {projects.length > 1 && <>
-        <button className="featured-nav featured-nav-previous" type="button" aria-label="Previous case study" aria-controls="featured-case-slide" onClick={() => move(-1)}><ChevronLeft aria-hidden="true" /></button>
+        {index > 0 && <button className="featured-nav featured-nav-previous" type="button" aria-label="Previous case study" aria-controls="featured-case-slide" onClick={() => move(-1)}><ChevronLeft aria-hidden="true" /></button>}
         <button className="featured-nav featured-nav-next" type="button" aria-label="Next case study" aria-controls="featured-case-slide" onClick={() => move(1)}><ChevronRight aria-hidden="true" /></button>
       </>}
       <article id="featured-case-slide" className="featured-showcase-slide" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${projects.length}: ${project.title}`}>
