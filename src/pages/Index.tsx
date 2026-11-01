@@ -27,6 +27,8 @@ import xeroIcon from '@/assets/tool-icons/vector/xero.svg';
 import supabaseIcon from '@/assets/tool-icons/vector/supabase.svg';
 import lovableIcon from '@/assets/tool-icons/vector/lovable.svg';
 import googleIcon from '@/assets/tool-icons/vector/google-workspace.svg';
+import vapiIcon from '@/assets/tool-icons/vector/vapi.svg';
+import zohoIcon from '@/assets/tool-icons/vector/zoho.svg';
 import makeCert from '@/assets/certificates/make-cert.png';
 import zapierCert from '@/assets/certificates/zapier-cert.png';
 import n8nCert from '@/assets/certificates/n8n-cert.png';
@@ -68,6 +70,8 @@ const supportingTools: ToolDockItem[] = [
   { label: 'Supabase', icon: supabaseIcon, background: '#111111', scale: 70 },
   { label: 'Lovable', icon: lovableIcon, background: '#f7f4ee', scale: 78 },
   { label: 'Google Workspace', icon: googleIcon, background: '#ffffff', scale: 70 },
+  { label: 'Vapi', icon: vapiIcon, background: '#000714', scale: 100 },
+  { label: 'Zoho', icon: zohoIcon, background: '#ffffff', scale: 82 },
   { label: 'Claude', icon: claudeIcon, background: '#d97757', invert: true },
   { label: 'Codex', icon: codexIcon, background: '#222222', invert: true },
 ];
@@ -256,7 +260,7 @@ function CredentialsView({ onCertificate }: { onCertificate: (certificate: (type
 
 function AboutView({ navigate }: { navigate: (view: View) => void }) {
   const skills = ['Webhooks', 'HTTP requests', 'JSON / XML', 'JavaScript', 'Conditional logic', 'Iterators', 'Error handling', 'OAuth', 'Regex', 'Data transformation'];
-  return <div className="view-shell"><PageHeading eyebrow="ABOUT" title="Automation designed around real business needs." text="I build connected CRM and AI workflows that reduce repetitive work, strengthen follow-up, and keep information moving between the tools your business relies on." /><section className="about-panel"><div className="about-copy"><h3>I turn disconnected processes into clear, reliable automation systems.</h3><p>I’m Chester Wapanio, a CRM & AI Automation Specialist based in Bohol, Philippines. Using GoHighLevel, n8n, Make, and Zapier, I design practical workflows for lead management, CRM updates, AI-assisted routing, follow-up, and cross-platform data movement.</p><p>Every project in this portfolio is a hands-on demonstration built with sample data. The work shows how I map a process, structure the workflow logic, anticipate failure points, and create clear handoffs when human judgment is needed.</p><div className="about-values"><span><Workflow /> Business-focused workflow design</span><span><Puzzle /> Safeguards and human handoffs</span><span><Sparkles /> Practical, continuous improvement</span></div></div><div className="about-profile-card"><img src={profile} alt="Chester Wapanio" /><strong>Chester Wapanio</strong><span>CRM & AI Automation Specialist</span><small><MapPin /> Bohol, Philippines · GMT+8</small><button className="primary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></section><section className="skills-panel"><span className="card-kicker">TECHNICAL CAPABILITIES</span><h3>The skills behind dependable automation.</h3><div>{skills.map(skill => <span key={skill}>{skill}</span>)}</div></section></div>;
+  return <div className="view-shell"><PageHeading eyebrow="ABOUT" title="Automation designed around real business needs." text="I build connected CRM and AI workflows that reduce repetitive work, strengthen follow-up, and keep information moving between the tools your business relies on." /><section className="about-panel"><div className="about-copy"><h3>I turn disconnected processes into clear, reliable automation systems.</h3><p>I’m Chester Wapanio, a CRM & AI Automation Specialist based in Bohol, Philippines. Using GoHighLevel, n8n, Make, and Zapier, I design practical workflows for lead management, CRM updates, AI-assisted routing, follow-up, and cross-platform data movement.</p><p>I design workflows to reduce repetitive data entry, keep customer records organized, and make follow-up easier. Clear rules, error handling, and human handoffs give teams a practical way to manage exceptions and keep work moving.</p><div className="about-values"><span><Workflow /> Business-focused workflow design</span><span><Puzzle /> Safeguards and human handoffs</span><span><Sparkles /> Practical, continuous improvement</span></div></div><div className="about-profile-card"><img src={profile} alt="Chester Wapanio" /><strong>Chester Wapanio</strong><span>CRM & AI Automation Specialist</span><small><MapPin /> Bohol, Philippines · GMT+8</small><button className="primary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></section><section className="skills-panel"><span className="card-kicker">TECHNICAL CAPABILITIES</span><h3>The skills behind dependable automation.</h3><div>{skills.map(skill => <span key={skill}>{skill}</span>)}</div></section></div>;
 }
 
 function ContactView({ onEmail }: { onEmail: () => void }) {

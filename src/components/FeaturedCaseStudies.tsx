@@ -43,6 +43,10 @@ export default function FeaturedCaseStudies({ projects, onProject }: { projects:
           <a className="featured-showcase-open" href={projectPath(project)} onClick={event => followInternalLink(event, () => onProject(project))}>View case study <ChevronRight size={16} aria-hidden="true" /></a>
         </div>
         {project.caseStudy === 'clearnest' ? <div className="featured-showcase-preview featured-showcase-video">
+          <div className="featured-video-footprint" aria-hidden="true">
+            <div className="featured-video-original-player" />
+            <div className="featured-video-caption">Watch the call and see the results <span>Open in Loom ↗</span></div>
+          </div>
           <iframe
             src="https://www.loom.com/embed/c0b16a31fe1941b9b3383aaf30f06e1f?hideEmbedTopBar=true"
             title="ClearNest AI receptionist demo"
@@ -50,7 +54,7 @@ export default function FeaturedCaseStudies({ projects, onProject }: { projects:
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
           />
-          <a className="featured-video-caption" href="https://www.loom.com/share/c0b16a31fe1941b9b3383aaf30f06e1f" target="_blank" rel="noreferrer">Watch the call and see the results <span>Open in Loom ↗</span></a>
+          <a className="featured-video-external" href="https://www.loom.com/share/c0b16a31fe1941b9b3383aaf30f06e1f" target="_blank" rel="noreferrer" aria-label="Open the ClearNest video in Loom">Open in Loom ↗</a>
         </div> : <a className="featured-showcase-preview" href={projectPath(project)} aria-label={`Open ${project.title} case study`} onClick={event => followInternalLink(event, () => onProject(project))}>
           <img src={project.image} alt={`${project.title} workflow diagram`} />
           <span>{project.caseStudy === 'northline' ? '4 workflows for booking setup, checks and approvals' : 'Explore the workflow and how it works'}<ChevronRight size={15} aria-hidden="true" /></span>

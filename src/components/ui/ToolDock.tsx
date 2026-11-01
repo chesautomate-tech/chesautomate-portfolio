@@ -29,8 +29,13 @@ function useStaticDock() {
     const query = window.matchMedia('(max-width: 780px), (hover: none)');
     const update = () => setCompact(query.matches);
     update();
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
+    if (typeof query.addEventListener === 'function') {
+      query.addEventListener('change', update);
+      return () => query.removeEventListener('change', update);
+    }
+    // Older Safari exposes the legacy MediaQueryList subscription methods.
+    query.addListener(update);
+    return () => query.removeListener(update);
   }, []);
 
   return reducedMotion || compact;
@@ -68,7 +73,7 @@ function DockTile({ item, index, count, pointer, layout, still }: {
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: still ? 0 : 0.5, delay: still ? 0 : index * 0.035 }}
     >
-      <motion.div className="support-tool-tile" style={{ x, y, scale, rotate, background: item.background }} role="img" aria-label={item.label}>
+      <motion.div className="support-tool-tile" style={{ x: still ? 0 : x, y: still ? 0 : y, scale: still ? 1 : scale, rotate: still ? 0 : rotate, background: item.background }} role="img" aria-label={item.label}>
         <img
           className={`support-tool-mark${item.invert ? ' is-inverted' : ''}`}
           src={item.icon}
@@ -83,6 +88,7 @@ function DockTile({ item, index, count, pointer, layout, still }: {
 
 export function ToolDock({ items }: { items: ToolDockItem[] }) {
   const rail = useRef<HTMLUListElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
   const layout = useRef<Layout>({ centers: [], width: 0 });
   const pointer = useMotionValue(Number.POSITIVE_INFINITY);
   const still = useStaticDock();
@@ -106,8 +112,9 @@ export function ToolDock({ items }: { items: ToolDockItem[] }) {
   }, [items.length]);
 
   const track = (clientX: number) => {
-    if (still || !rail.current) return;
-    const x = clientX - rail.current.getBoundingClientRect().left;
+    if (still || !stage.current) return;
+    // Slot offsets and pointer coordinates both use the positioned stage as their origin.
+    const x = clientX - stage.current.getBoundingClientRect().left;
     pointer.set(x);
     const nearest = layout.current.centers.reduce((best, center, index, centers) =>
       Math.abs(x - center) < Math.abs(x - centers[best]) ? index : best, 0);
@@ -122,7 +129,16 @@ export function ToolDock({ items }: { items: ToolDockItem[] }) {
 
   return (
     <div className="supporting-tools-dock">
-      <div className="supporting-tools-stage" tabIndex={still ? 0 : undefined} role="region" aria-label="Connected apps">
+      <div
+        ref={stage}
+        className="supporting-tools-stage"
+        tabIndex={still ? 0 : undefined}
+        role="region"
+        aria-label="Connected apps"
+        onPointerMove={(event) => { if (event.pointerType !== 'touch') track(event.clientX); }}
+        onPointerLeave={release}
+        onPointerCancel={release}
+      >
         <span className={`support-tool-tooltip ${active === null ? '' : 'is-visible'}`} style={{ left: tooltipX }} aria-hidden="true">
           {active === null ? '' : items[active].label}
         </span>
@@ -130,9 +146,6 @@ export function ToolDock({ items }: { items: ToolDockItem[] }) {
           ref={rail}
           className="supporting-tools-list"
           aria-label="Supporting tools and platforms"
-          onPointerMove={(event) => track(event.clientX)}
-          onPointerLeave={release}
-          onPointerCancel={release}
         >
           {items.map((item, index) => (
             <DockTile key={item.label} item={item} index={index} count={items.length} pointer={pointer} layout={layout} still={still} />
