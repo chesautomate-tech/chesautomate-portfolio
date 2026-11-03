@@ -12,9 +12,20 @@ export default function ProjectPage({ project, onBack, onDiscuss }: { project: P
     <header className="project-page-heading">
       <span className="card-kicker">{project.caseStudy === 'clearnest' ? 'Vapi + n8n' : project.platform} · Portfolio case study</span>
       <h1>{project.title}</h1>
-      <p>{project.caseStudy === 'clearnest' ? 'A personal project for a fictional cleaning business in Austin, Texas. Built and tested with sample customer details.' : project.caseStudy === 'northline' ? 'A portfolio project for Northline, a fictional event services company.' : 'An independent workflow demonstration built with sample data.'}</p>
+      <p>{project.caseStudy === 'invoice-review' ? 'Catch invoice errors before paying and spend less time checking bills by hand.' : project.caseStudy === 'clearnest' ? 'A personal project for a fictional cleaning business in Austin, Texas. Built and tested with sample customer details.' : project.caseStudy === 'northline' ? 'A portfolio project for Northline, a fictional event services company.' : 'An independent workflow demonstration built with sample data.'}</p>
     </header>
-    {project.caseStudy === 'clearnest' ? <ClearNestCaseStudy /> : project.caseStudy === 'northline' ? <NorthlineCaseStudy /> : project.caseStudy === 'lead-reactivation' ? <LeadReactivationCaseStudy project={project} /> : <div className="project-page-content">
+    {project.caseStudy === 'invoice-review' ? <div className="project-page-content">
+      <p className="project-page-intro">Drop a supplier invoice into OneDrive. The workflow checks the dates, items and totals against the bill in Zoho Books and records what matched or needs review in Google Sheets.</p>
+      <section className="project-page-summary" aria-label="Sample results">
+        <div><h2>$180 difference flagged</h2><p>The invoice showed $1,200 and the bill showed $1,020. The check also flagged that the invoice listed three items and the bill listed one, so the team knew what to review before paying.</p></div>
+        <div><h2>$1,450 invoice matched</h2><p>The invoice details matched the bill in Zoho Books. With the match recorded in the same sheet, the team can focus on bills that need a closer look.</p></div>
+      </section>
+      <section className="project-page-diagram">
+        <h2>Watch the invoice check</h2>
+        <iframe src={`https://www.loom.com/embed/${project.loomId}?hideEmbedTopBar=true`} title="Supplier Invoice Review walkthrough" loading="lazy" style={{ width: '100%', aspectRatio: '16 / 9', border: 0 }} allow="fullscreen; picture-in-picture" allowFullScreen />
+        <a href={`https://www.loom.com/share/${project.loomId}`} target="_blank" rel="noreferrer"><span>Open in Loom <ArrowUpRight size={18} /></span></a>
+      </section>
+    </div> : project.caseStudy === 'clearnest' ? <ClearNestCaseStudy /> : project.caseStudy === 'northline' ? <NorthlineCaseStudy /> : project.caseStudy === 'lead-reactivation' ? <LeadReactivationCaseStudy project={project} /> : <div className="project-page-content">
       {project.description && <p className="project-page-intro">{project.description}</p>}
       {project.tags && <ul className="project-page-tools" aria-label="Tools used">{[project.platform, ...project.tags].map(tag => <li key={tag}>{tag}</li>)}</ul>}
       {(project.problem || project.solution) && <section className="project-page-summary" aria-label="Project overview">

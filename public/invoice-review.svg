@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#171717"/>
+  <g font-family="system-ui, sans-serif" text-anchor="middle">
+    <text x="400" y="100" fill="#fff" font-size="38" font-weight="700">Supplier Invoice Review</text>
+    <rect x="90" y="150" width="620" height="95" rx="16" fill="#352c20"/>
+    <text x="400" y="191" fill="#ffcf7a" font-size="28" font-weight="700">$180 difference flagged</text>
+    <text x="400" y="221" fill="#fff" font-size="19">$1,200 invoice · $1,020 in Zoho Books</text>
+    <rect x="90" y="270" width="620" height="95" rx="16" fill="#20362d"/>
+    <text x="400" y="311" fill="#b6e9ce" font-size="28" font-weight="700">$1,450 invoice matched</text>
+    <text x="400" y="341" fill="#fff" font-size="19">Results from two sample invoices</text>
+  </g>
+</svg>
