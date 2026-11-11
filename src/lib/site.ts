@@ -14,7 +14,7 @@ const viewMetadata: Record<View, { title: string; description: string }> = {
   services: { title: 'CRM & Workflow Automation Services | Chester Wapanio', description: 'CRM and lead management, workflow automation, AI-assisted processes, API integrations, data transformation and multi-platform synchronization.' },
   credentials: { title: 'Automation Training & Credentials | Chester Wapanio', description: 'View Chester Wapanio’s training in GoHighLevel, n8n, Make, Zapier and prompt engineering.' },
   about: { title: 'About Chester Wapanio | CRM & AI Automation Specialist', description: 'Meet Chester Wapanio, a CRM and AI Automation Specialist in Bohol, Philippines. Open to client projects, agency collaborations and employment opportunities.' },
-  contact: { title: 'Contact Chester Wapanio | Projects, Agencies & Roles', description: 'Discuss a client project, agency collaboration or employment opportunity with Chester Wapanio. Contact him by email, WhatsApp, LinkedIn or OnlineJobs.ph.' },
+  contact: { title: 'Book an Automation Call | Chester Wapanio', description: 'Book a 30-minute call with Chester Wapanio. Choose a time and share your workflow, tools, budget and project goals through Calendly.' },
 };
 
 export function resolveRoute(pathname: string): { view: View; project?: Project; notFound?: boolean } {

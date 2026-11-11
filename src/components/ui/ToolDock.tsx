@@ -21,13 +21,12 @@ function swellAt(layout: Layout, index: number, pointerX: number) {
   return Math.max(0, 1 - Math.abs(pointerX - center) / layout.width / REACH) ** 2;
 }
 
-function useStaticDock() {
-  const reducedMotion = useReducedMotion() ?? false;
-  const [compact, setCompact] = useState(false);
+function useTouchOnlyDock() {
+  const [touchOnly, setTouchOnly] = useState(false);
 
   useEffect(() => {
-    const query = window.matchMedia('(max-width: 780px), (hover: none)');
-    const update = () => setCompact(query.matches);
+    const query = window.matchMedia('(any-hover: none)');
+    const update = () => setTouchOnly(query.matches);
     update();
     if (typeof query.addEventListener === 'function') {
       query.addEventListener('change', update);
@@ -38,7 +37,7 @@ function useStaticDock() {
     return () => query.removeListener(update);
   }, []);
 
-  return reducedMotion || compact;
+  return touchOnly;
 }
 
 function DockTile({ item, index, count, pointer, layout, still }: {
@@ -91,7 +90,9 @@ export function ToolDock({ items }: { items: ToolDockItem[] }) {
   const stage = useRef<HTMLDivElement>(null);
   const layout = useRef<Layout>({ centers: [], width: 0 });
   const pointer = useMotionValue(Number.POSITIVE_INFINITY);
-  const still = useStaticDock();
+  const touchOnly = useTouchOnlyDock();
+  const reducedMotion = useReducedMotion();
+  const still = touchOnly || reducedMotion === true;
   const [active, setActive] = useState<number | null>(null);
   const [tooltipX, setTooltipX] = useState(0);
 
@@ -112,10 +113,10 @@ export function ToolDock({ items }: { items: ToolDockItem[] }) {
   }, [items.length]);
 
   const track = (clientX: number) => {
-    if (still || !stage.current) return;
+    if (touchOnly || !stage.current || !layout.current.centers.length) return;
     // Slot offsets and pointer coordinates both use the positioned stage as their origin.
     const x = clientX - stage.current.getBoundingClientRect().left;
-    pointer.set(x);
+    if (!still) pointer.set(x);
     const nearest = layout.current.centers.reduce((best, center, index, centers) =>
       Math.abs(x - center) < Math.abs(x - centers[best]) ? index : best, 0);
     setActive(nearest);
@@ -132,7 +133,7 @@ export function ToolDock({ items }: { items: ToolDockItem[] }) {
       <div
         ref={stage}
         className="supporting-tools-stage"
-        tabIndex={still ? 0 : undefined}
+        tabIndex={touchOnly ? 0 : undefined}
         role="region"
         aria-label="Connected apps"
         onPointerMove={(event) => { if (event.pointerType !== 'touch') track(event.clientX); }}

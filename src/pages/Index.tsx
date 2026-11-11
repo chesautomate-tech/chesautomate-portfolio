@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
-  Award, Bot, BriefcaseBusiness, Check, ChevronRight, CircleUserRound, Copy, ExternalLink,
+  Award, Bot, BriefcaseBusiness, CalendarDays, Check, ChevronRight, CircleUserRound, Copy, ExternalLink,
   FolderKanban, Home, Layers3, Linkedin, Mail, MapPin, Menu, MessageCircle, Network,
   Puzzle, Sparkles, Workflow, X,
 } from 'lucide-react';
@@ -42,6 +42,7 @@ const emailAddress = 'chesautomate@gmail.com';
 const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=chesautomate@gmail.com&su=Portfolio%20Inquiry';
 const outlookUrl = 'https://outlook.office.com/mail/deeplink/compose?to=chesautomate@gmail.com&subject=Portfolio%20Inquiry';
 const whatsappUrl = 'https://wa.me/639125033533?text=Hi%20Chester%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20an%20automation%20project.';
+const bookingUrl = 'https://calendly.com/chesautomate/30min';
 
 const navigation: { id: View; label: string; icon: typeof Home }[] = [
   { id: 'home', label: 'Home', icon: Home },
@@ -50,7 +51,7 @@ const navigation: { id: View; label: string; icon: typeof Home }[] = [
   { id: 'services', label: 'Services', icon: Layers3 },
   { id: 'credentials', label: 'Credentials', icon: Award },
   { id: 'about', label: 'About', icon: CircleUserRound },
-  { id: 'contact', label: 'Contact', icon: Mail },
+  { id: 'contact', label: 'Book a call', icon: CalendarDays },
 ];
 
 const platforms: { name: Platform; logo: string; className: string }[] = [
@@ -172,7 +173,7 @@ export default function Index({ initialPath = '/' }: { initialPath?: string }) {
         {view === 'services' && <ServicesView navigate={navigate} />}
         {view === 'credentials' && <CredentialsView onCertificate={setSelectedCertificate} />}
         {view === 'about' && <AboutView navigate={navigate} />}
-        {view === 'contact' && <ContactView onEmail={() => setEmailDialogOpen(true)} />}
+        {view === 'contact' && <ContactView />}
         </>}
       </main>
 
@@ -263,8 +264,24 @@ function AboutView({ navigate }: { navigate: (view: View) => void }) {
   return <div className="view-shell"><PageHeading eyebrow="ABOUT" title="Automation designed around real business needs." text="I build connected CRM and AI workflows that reduce repetitive work, strengthen follow-up, and keep information moving between the tools your business relies on." /><section className="about-panel"><div className="about-copy"><h3>I turn disconnected processes into clear, reliable automation systems.</h3><p>I’m Chester Wapanio, a CRM & AI Automation Specialist based in Bohol, Philippines. Using GoHighLevel, n8n, Make, and Zapier, I design practical workflows for lead management, CRM updates, AI-assisted routing, follow-up, and cross-platform data movement.</p><p>I design workflows to reduce repetitive data entry, keep customer records organized, and make follow-up easier. Clear rules, error handling, and human handoffs give teams a practical way to manage exceptions and keep work moving.</p><div className="about-values"><span><Workflow /> Business-focused workflow design</span><span><Puzzle /> Safeguards and human handoffs</span><span><Sparkles /> Practical, continuous improvement</span></div></div><div className="about-profile-card"><img src={profile} alt="Chester Wapanio" /><strong>Chester Wapanio</strong><span>CRM & AI Automation Specialist</span><small><MapPin /> Bohol, Philippines · GMT+8</small><button className="primary-action" type="button" onClick={() => navigate('contact')}>Discuss your workflow</button></div></section><section className="skills-panel"><span className="card-kicker">AUTOMATION CAPABILITIES</span><h3>Connect your tools and give every task a clear next step.</h3><div>{skills.map(skill => <span key={skill}>{skill}</span>)}</div></section></div>;
 }
 
-function ContactView({ onEmail }: { onEmail: () => void }) {
-  return <div className="view-shell contact-view"><PageHeading eyebrow="CONTACT" title="Let’s make the workflow clearer." text="Tell me what you are working on, where the process gets repetitive, or how I could contribute to your team." /><div className="contact-grid"><button type="button" onClick={onEmail}><span className="contact-icon"><Mail /></span><div><small>EMAIL</small><h3>{emailAddress}</h3><p>Choose Gmail, Outlook, or copy my email address.</p></div><ChevronRight /></button><a href={whatsappUrl} target="_blank" rel="noreferrer"><span className="contact-icon"><MessageCircle /></span><div><small>WHATSAPP</small><h3>+63 912 503 3533</h3><p>Start a direct conversation about your workflow.</p></div><ExternalLink /></a><a href="https://www.linkedin.com/in/chester-wapanio-79130138b" target="_blank" rel="noreferrer"><span className="contact-icon"><Linkedin /></span><div><small>LINKEDIN</small><h3>Chester Wapanio</h3><p>Connect and view my professional profile.</p></div><ExternalLink /></a><a href="https://www.onlinejobs.ph/jobseekers/info/3858644" target="_blank" rel="noreferrer"><span className="contact-icon"><BriefcaseBusiness /></span><div><small>ONLINEJOBS.PH</small><h3>View my jobseeker profile</h3><p>Skills, availability, and work information.</p></div><ExternalLink /></a></div><div className="availability-card"><span className="availability-dot" /><div><strong>Open to freelance projects and team opportunities</strong><p>Based in the Philippines and available for remote collaboration.</p></div></div></div>;
+function ContactView() {
+  return (
+    <div className="view-shell contact-view">
+      <PageHeading
+        eyebrow="BOOK A CALL"
+        title="Let’s talk about your workflow."
+        text="Choose a time and share what you’d like to automate."
+      />
+      <a className="booking-link" href={bookingUrl} target="_blank" rel="noreferrer">
+        Open in Calendly <ExternalLink size={15} />
+      </a>
+      <iframe
+        className="booking-calendar"
+        src={bookingUrl}
+        title="Book a 30-minute call with Chester Wapanio"
+      />
+    </div>
+  );
 }
 
 function EmailDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
