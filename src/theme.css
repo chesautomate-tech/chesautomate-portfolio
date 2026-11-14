@@ -1,0 +1,75 @@
+/* Chester's midnight blue and sunflower yellow palette. */
+:root {
+  color-scheme: dark;
+  --theme-background: #0b1d2a;
+  --theme-sidebar-rgb: 8, 23, 34;
+  --theme-surface: #102938;
+  --theme-surface-raised: #173646;
+  --theme-surface-hover: #1c4154;
+  --theme-text: #f3f7fa;
+  --theme-muted: #aebfcb;
+  --theme-subtle: #91a7b6;
+  --theme-accent: #f2b705;
+  --theme-accent-rgb: 242, 183, 5;
+  --theme-accent-hover: #ffd047;
+  --theme-accent-soft: #f7d66d;
+  --theme-border: #355467;
+
+  /* Shared UI components use HSL channels. */
+  --background: 205.16 58.49% 10.39%;
+  --foreground: 205 41% 97%;
+  --card: 203 56% 14%;
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: 45.06 95.95% 48.43%;
+  --primary-foreground: var(--background);
+  --secondary: 202 51% 18%;
+  --secondary-foreground: var(--foreground);
+  --muted: var(--secondary);
+  --muted-foreground: 204 22% 74%;
+  --accent: var(--primary);
+  --accent-foreground: var(--background);
+  --border: 204 32% 26%;
+  --input: var(--border);
+  --ring: var(--primary);
+  --emerald: var(--primary);
+  --emerald-light: 45 100% 64%;
+  --emerald-dark: 45 96% 42%;
+  --glass-bg: linear-gradient(140deg, #173646e0, #102938f2);
+  --glass-border: rgb(174 191 203 / 20%);
+  --glass-border-hover: rgb(var(--theme-accent-rgb), .5);
+  --sidebar-background: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--background);
+  --sidebar-accent: var(--secondary);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--primary);
+}
+
+.portfolio-app {
+  --canvas: var(--theme-background);
+  --paper: var(--theme-surface);
+  --ink: var(--theme-text);
+  --muted: var(--theme-muted);
+  --line: rgb(174 191 203 / 16%);
+  --emerald: var(--theme-accent);
+  --emerald-dark: var(--theme-accent);
+  --emerald-soft: rgba(var(--theme-accent-rgb), .12);
+}
+
+.portfolio-app .primary-action {
+  background: var(--theme-accent);
+  color: var(--theme-background);
+}
+
+.portfolio-app .primary-action:hover {
+  background: var(--theme-accent-hover);
+}
+
+::selection {
+  background: var(--theme-accent);
+  color: var(--theme-background);
+}
