@@ -2,6 +2,7 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
 import './refinements.css';
+import './theme.css';
 
 const root = document.getElementById('root')!;
 const app = <App initialPath={root.dataset.prerenderPath || window.location.pathname} />;
