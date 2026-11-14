@@ -1,0 +1,89 @@
+/* Match the fuller desktop presentation shown in Chester's reference. */
+@media (min-width: 1600px) {
+  :root { font-size: 120%; }
+
+  .profile-sidebar { width: 374.4px; padding: 48px 36px 31.2px; }
+  .profile-photo { width: 158.4px; height: 158.4px; margin-bottom: 21.6px; }
+  .profile-location { gap: 8.4px; margin: 19.2px 0 21.6px; }
+  .profile-socials { gap: 12px; }
+  .profile-socials :is(a, button) { width: 55.2px; height: 55.2px; }
+  .profile-socials svg { width: 22.8px; }
+  .sidebar-rule { margin: 28.8px 0 24px; }
+  .sidebar-nav { gap: 7.2px; }
+  .sidebar-nav a { gap: 16.8px; padding: 14.4px 18px; border-radius: 14.4px; }
+  .sidebar-nav svg { width: 24px; }
+  .profile-block .profile-name { margin-bottom: 8.4px; }
+  .dashboard-main { margin-left: 374.4px; }
+  .view-shell { max-width: 1536px; padding: 50.4px 57.6px 57.6px; }
+
+  .home-view { padding-top: 28.8px; }
+  .home-view .home-intro {
+    grid-template-columns: minmax(0, 1.45fr) minmax(384px, .62fr);
+    gap: 55.2px;
+    margin-bottom: 21.6px;
+  }
+  .home-view .home-intro h1 { max-width: 1056px; margin: 9.6px 0 12px; }
+  .home-view .intro-copy > p { max-width: 912px; }
+  .home-view .availability-badge { gap: 10.8px; margin-bottom: 12px; padding: 7.2px 12px; }
+  .home-view .hero-actions { gap: 12px; margin-top: 16.8px; }
+  .home-view .hero-actions :is(button, a) { padding: 13.2px 21.6px; }
+  .home-view .hero-proof { padding: 21.6px 24px; border-radius: 28.8px; }
+  .home-view .hero-proof h3 { margin: 10.8px 0 16.8px; }
+  .home-view .hero-proof > p { margin-top: 14.4px; }
+  .home-view .proof-stats { gap: 9.6px; padding: 14.4px 0; }
+  .home-view .home-featured { margin-bottom: 19.2px; }
+
+  .featured-showcase { border-radius: 26.4px; }
+  .featured-showcase-header { gap: 19.2px; padding: 16.8px 76.8px 12px; }
+  .featured-showcase .card-kicker { font-size: 12px; }
+  .featured-showcase-count { font-size: 14.4px; }
+  .featured-showcase-slide { gap: 28.8px; min-height: 312px; padding: 0 76.8px 14.4px; }
+  .featured-showcase-platform { font-size: 13.2px; }
+  .featured-showcase h3 { font-size: 33.6px; margin: 9.6px 0; }
+  .featured-showcase-copy > p { font-size: 15.6px; }
+  .featured-showcase .featured-value-tags { gap: 7.2px; margin-top: 12px; }
+  .featured-value-tags span { padding: 6px 9.6px; border-radius: 8.4px; }
+  .featured-showcase-open { gap: 8.4px; margin-top: 14.4px; padding: 12px 16.8px; border-radius: 12px; }
+  .featured-showcase-preview { border-radius: 15.6px; }
+  .featured-showcase-preview img, .featured-video-original-player { height: 228px; }
+  .featured-showcase-preview > span, .featured-video-caption {
+    gap: 7.2px 14.4px;
+    min-height: 50.4px;
+    padding: 14.4px 16.8px;
+    font-size: 13.2px;
+  }
+  .featured-showcase-video .featured-video-external {
+    top: 9.6px;
+    right: 9.6px;
+    padding: 6px 9.6px;
+    font-size: 13.2px;
+  }
+  .featured-nav { width: 52.8px; height: 57.6px; border-radius: 14.4px; }
+  .featured-nav-previous { left: 12px; }
+  .featured-nav-next { right: 12px; }
+  .featured-nav svg { width: 24px; height: 24px; }
+  .featured-showcase-dots { gap: 2.4px; padding-bottom: 4.8px; }
+  .featured-showcase-dots button { width: 43.2px; height: 38.4px; }
+  .featured-showcase-dots button > span { width: 8.4px; height: 8.4px; }
+  .featured-showcase-dots button[aria-current="true"] > span { width: 26.4px; }
+
+  .tool-rail { min-height: 91.2px; padding: 12px 16.8px 12px 20.4px; gap: 21.6px; border-radius: 26.4px; }
+  .tool-rail-label { min-width: 198px; padding-right: 20.4px; }
+  .tool-logo { flex-basis: 180px; height: 60px; }
+  .tool-logo img { width: 132px; max-height: 52.8px; }
+  .tool-logo.n8n img { width: 105.6px; height: 74.4px; }
+  .tool-logo.zapier img { width: 153.6px; height: 76.8px; }
+  .tool-logo.make { height: 55.2px; margin-inline: 8.4px; }
+  .tool-logo.make img { width: 134.4px; }
+  .tool-logo.highlevel { height: 55.2px; }
+  .tool-logo.highlevel img { width: 127.2px; }
+}
+
+/* Keep every navigation item reachable on wide, shorter displays. */
+@media (min-width: 1600px) and (max-height: 1020px) {
+  .profile-sidebar { padding: 28.8px 28.8px 24px; }
+  .profile-photo { width: 115.2px; height: 115.2px; margin-bottom: 16.8px; }
+  .sidebar-rule { margin: 21.6px 0 16.8px; }
+  .sidebar-nav { gap: 4.8px; }
+  .sidebar-nav a { padding-block: 12px; }
+}

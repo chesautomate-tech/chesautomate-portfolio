@@ -3,6 +3,7 @@ import App from './App';
 import './index.css';
 import './refinements.css';
 import './theme.css';
+import './presentation.css';
 
 const root = document.getElementById('root')!;
 const app = <App initialPath={root.dataset.prerenderPath || window.location.pathname} />;
