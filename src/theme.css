@@ -1,47 +1,47 @@
-/* Chester's brown-led 60/30/10 palette trial: brown, grey, charcoal. */
+/* Chester's Cyan Navy / Ghost White / Neon Pear palette trial. */
 :root {
   color-scheme: dark;
-  --theme-depth: #7d5647;
-  --theme-depth-rgb: 125, 86, 71;
-  --theme-background: #7d5647;
-  --theme-sidebar-rgb: 108, 73, 60;
-  --theme-surface: #242429;
-  --theme-surface-raised: #2d2d34;
-  --theme-surface-hover: #393941;
-  --theme-text: #f2efed;
-  --theme-muted: #f2efed;
-  --theme-subtle: #f2efed;
-  --theme-accent: #f3e8e0;
-  --theme-accent-rgb: 169, 170, 174;
-  --theme-accent-hover: #2d2d34;
-  --theme-accent-soft: #f2efed;
-  --theme-action: #19191e;
-  --theme-action-ink: #fff;
-  --theme-border: #56565f;
+  --theme-depth: #092742;
+  --theme-depth-rgb: 9, 39, 66;
+  --theme-background: #092742;
+  --theme-sidebar-rgb: 7, 31, 53;
+  --theme-surface: #0d304e;
+  --theme-surface-raised: #143d5e;
+  --theme-surface-hover: #1c4b6d;
+  --theme-text: #fefffa;
+  --theme-muted: #bed0dd;
+  --theme-subtle: #a6bdce;
+  --theme-accent: #d2fa00;
+  --theme-accent-rgb: 210, 250, 0;
+  --theme-accent-hover: #e1ff4d;
+  --theme-accent-soft: #fefffa;
+  --theme-action: #d2fa00;
+  --theme-action-ink: #092742;
+  --theme-border: #48667e;
 
   /* Shared UI components use HSL channels. */
-  --background: 16.67 27.55% 38.43%;
-  --foreground: 24.00 16.13% 93.92%;
-  --card: 240.00 6.49% 15.10%;
+  --background: 208.42 76.00% 14.71%;
+  --foreground: 72.00 100.00% 99.02%;
+  --card: 207.69 71.43% 17.84%;
   --card-foreground: var(--foreground);
   --popover: var(--card);
   --popover-foreground: var(--foreground);
-  --primary: 240.00 9.09% 10.78%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 240.00 7.22% 19.02%;
+  --primary: 69.60 100.00% 49.02%;
+  --primary-foreground: var(--background);
+  --secondary: 206.76 64.91% 22.35%;
   --secondary-foreground: var(--foreground);
   --muted: var(--secondary);
-  --muted-foreground: var(--foreground);
+  --muted-foreground: 205.16 31.31% 80.59%;
   --accent: var(--primary);
   --accent-foreground: var(--primary-foreground);
-  --border: 240.00 4.97% 35.49%;
+  --border: 206.67 27.27% 38.82%;
   --input: var(--border);
-  --ring: 25.26 44.19% 91.57%;
+  --ring: var(--primary);
   --emerald: var(--primary);
-  --emerald-light: 25.26 44.19% 91.57%;
+  --emerald-light: 70.11 100.00% 65.10%;
   --emerald-dark: var(--primary);
-  --glass-bg: linear-gradient(140deg, #7d564733, #242429f2);
-  --glass-border: rgb(169 170 174 / 24%);
+  --glass-bg: linear-gradient(140deg, #143d5e99, #092742f2);
+  --glass-border: rgb(254 255 250 / 20%);
   --glass-border-hover: rgb(var(--theme-accent-rgb), .5);
   --sidebar-background: var(--background);
   --sidebar-foreground: var(--foreground);
@@ -58,7 +58,7 @@
   --paper: var(--theme-surface);
   --ink: var(--theme-text);
   --muted: var(--theme-muted);
-  --line: rgb(169 170 174 / 20%);
+  --line: rgb(254 255 250 / 18%);
   --emerald: var(--theme-accent);
   --emerald-dark: var(--theme-accent);
   --emerald-soft: rgba(var(--theme-accent-rgb), .12);
@@ -83,48 +83,48 @@
   color: var(--theme-action-ink);
 }
 
-/* Brown dominates the canvas; grey cards and charcoal actions balance it. */
+/* Navy leads the canvas, ghost white supplies cards, neon marks actions. */
 .portfolio-app .hero-proof,
 .portfolio-app .featured-showcase {
-  --theme-text: #19191e;
-  --theme-muted: #34343b;
-  --theme-subtle: #34343b;
-  --theme-accent: #19191e;
-  --theme-surface-raised: #96979c;
-  --theme-surface-hover: #b8b9bd;
-  --ink: #19191e;
-  --muted: #34343b;
-  --emerald: #19191e;
-  --emerald-dark: #19191e;
-  --line: rgb(25 25 30 / 20%);
-  background: #a9aaae;
-  color: #19191e;
-  border-color: rgb(169 170 174 / 55%);
+  --theme-text: #092742;
+  --theme-muted: #344c60;
+  --theme-subtle: #344c60;
+  --theme-accent: #092742;
+  --theme-surface-raised: #e7edf0;
+  --theme-surface-hover: #dbe5eb;
+  --ink: #092742;
+  --muted: #344c60;
+  --emerald: #092742;
+  --emerald-dark: #092742;
+  --line: rgb(9 39 66 / 16%);
+  background: #fefffa;
+  color: #092742;
+  border-color: rgb(254 255 250 / 55%);
 }
 
 .portfolio-app .hero-proof .card-kicker {
-  color: #19191e;
+  color: #092742;
 }
 
 .portfolio-app .proof-stats,
 .portfolio-app .proof-stats div {
-  border-color: rgb(25 25 30 / 18%);
+  border-color: rgb(9 39 66 / 16%);
 }
 
 .portfolio-app .proof-stats strong {
-  color: #19191e;
+  color: #092742;
 }
 
 .portfolio-app .featured-value-tags span {
-  color: #19191e;
-  background: rgb(25 25 30 / 6%);
-  border-color: rgb(25 25 30 / 18%);
+  color: #092742;
+  background: rgb(9 39 66 / 6%);
+  border-color: rgb(9 39 66 / 16%);
 }
 
 .portfolio-app .featured-showcase-video .featured-video-external {
-  color: #fff;
+  color: #fefffa;
 }
 
 .portfolio-app .featured-showcase-open:focus-visible {
-  outline-color: #19191e;
+  outline-color: #092742;
 }
