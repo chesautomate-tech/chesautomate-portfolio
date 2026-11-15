@@ -43,6 +43,7 @@ const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=chesautomate@gma
 const outlookUrl = 'https://outlook.office.com/mail/deeplink/compose?to=chesautomate@gmail.com&subject=Portfolio%20Inquiry';
 const whatsappUrl = 'https://wa.me/639125033533?text=Hi%20Chester%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20an%20automation%20project.';
 const bookingUrl = 'https://calendly.com/chesautomate/30min';
+const bookingEmbedUrl = `${bookingUrl}?embed_domain=chesautomate-portfolio.pages.dev&embed_type=Inline&hide_event_type_details=1`;
 
 const navigation: { id: View; label: string; icon: typeof Home }[] = [
   { id: 'home', label: 'Home', icon: Home },
@@ -270,14 +271,14 @@ function ContactView() {
       <PageHeading
         eyebrow="BOOK A CALL"
         title="Let’s talk about your workflow."
-        text="Choose a time and share what you’d like to automate."
+        text="Choose a time for a 30-minute call, then share what you’d like to automate."
       />
       <a className="booking-link" href={bookingUrl} target="_blank" rel="noreferrer">
         Open in Calendly <ExternalLink size={15} />
       </a>
       <iframe
         className="booking-calendar"
-        src={bookingUrl}
+        src={bookingEmbedUrl}
         title="Book a 30-minute call with Chester Wapanio"
       />
     </div>

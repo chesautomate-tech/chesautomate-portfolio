@@ -58,8 +58,16 @@
   height: min(850px, calc(100dvh - 40px));
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 18px;
-  background: #fff;
+  background: transparent;
   color-scheme: light;
+}
+/* Keep the desktop scheduler from becoming a wall of white on large displays. */
+@media (min-width: 1201px) {
+  .view-shell.contact-view { max-width: 1236px; }
+  .booking-calendar {
+    height: min(760px, calc(100vh - 40px));
+    height: min(760px, calc(100dvh - 40px));
+  }
 }
 @media (max-width: 520px) {
   .contact-view { padding-inline: 0; }
