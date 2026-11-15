@@ -1,4 +1,4 @@
-/* Chester's Jet Black / Smoke Grey / Cherry Red palette trial. */
+/* Restrained black, smoke grey and cherry red refinement. */
 :root {
   color-scheme: dark;
   --theme-depth: #8a8d93;
@@ -11,12 +11,12 @@
   --theme-text: #f3f3f4;
   --theme-muted: #b5b8bf;
   --theme-subtle: #8a8d93;
-  /* Use a readable red tint for small text on dark surfaces. */
-  --theme-accent: #f04b63;
-  --theme-accent-rgb: 200, 16, 46;
-  --theme-accent-hover: #db1738;
+  --theme-accent: #e3e3e6;
+  --theme-accent-rgb: 138, 141, 147;
+  --theme-accent-hover: #f3f3f4;
   --theme-accent-soft: #f3f3f4;
   --theme-action: #c8102e;
+  --theme-action-hover: #db1738;
   --theme-border: #4e5158;
 
   /* Shared UI components use HSL channels. */
@@ -36,9 +36,9 @@
   --accent-foreground: var(--foreground);
   --border: 222.00 6.02% 32.55%;
   --input: var(--border);
-  --ring: 351.27 84.62% 61.76%;
+  --ring: 240.00 5.66% 89.61%;
   --emerald: var(--primary);
-  --emerald-light: 351.27 84.62% 61.76%;
+  --emerald-light: 240.00 5.66% 89.61%;
   --emerald-dark: var(--primary);
   --glass-bg: linear-gradient(140deg, #8a8d9322, #151618f2);
   --glass-border: rgb(138 141 147 / 25%);
@@ -74,7 +74,7 @@
 .portfolio-app .primary-action:hover,
 .portfolio-app .featured-showcase-open:hover,
 .portfolio-app .featured-card:hover .featured-cta {
-  background: var(--theme-accent-hover);
+  background: var(--theme-action-hover);
   color: #fff;
 }
 

@@ -1,0 +1,129 @@
+/* The smoke is decorative: it never intercepts input or carries information. */
+.portfolio-app .dashboard-main {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  background: var(--theme-background);
+}
+
+.portfolio-app .dashboard-main::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: -60px 0 auto;
+  height: 1100px;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, rgba(11, 11, 12, .94), rgba(11, 11, 12, .72) 55%, rgba(11, 11, 12, .06)),
+    url('./assets/atmosphere/smoke-silver-v1.png');
+  background-position: center, right top;
+  background-size: cover, cover;
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(#000 0%, #000 65%, transparent 100%);
+  mask-image: linear-gradient(#000 0%, #000 65%, transparent 100%);
+  opacity: .9;
+  transform-origin: 75% 35%;
+  animation: portfolio-smoke-drift 36s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.portfolio-app .dashboard-main > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes portfolio-smoke-drift {
+  from { transform: translate3d(-12px, 0, 0) scale(1.025); }
+  to { transform: translate3d(14px, -24px, 0) scale(1.065); }
+}
+
+.portfolio-app .home-intro h1 span {
+  background: none;
+  color: var(--theme-text);
+  -webkit-text-fill-color: currentColor;
+}
+
+.portfolio-app .availability-badge i {
+  background: #a9aaae;
+  box-shadow: 0 0 0 5px rgba(169, 170, 174, .1);
+}
+
+.portfolio-app .hero-proof {
+  background: rgba(13, 13, 15, .8);
+  border-color: rgba(255, 255, 255, .14);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.portfolio-app .hero-proof::before { display: none; }
+
+.portfolio-app .featured-showcase {
+  background: rgba(11, 11, 13, .86);
+  border-color: rgba(255, 255, 255, .14);
+}
+
+.portfolio-app .featured-showcase::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto auto 64px;
+  width: 54px;
+  height: 2px;
+  background: var(--theme-action);
+  pointer-events: none;
+}
+
+.portfolio-app .featured-showcase-open,
+.portfolio-app .featured-cta {
+  background: rgba(255, 255, 255, .035);
+  color: var(--theme-text);
+  border: 1px solid rgba(255, 255, 255, .3);
+  box-shadow: none;
+}
+
+.portfolio-app .featured-showcase-open::before,
+.portfolio-app .featured-showcase-open::after {
+  display: none;
+  animation: none;
+  will-change: auto;
+}
+
+.portfolio-app .featured-showcase-open svg { color: var(--theme-action); }
+
+.portfolio-app .featured-showcase-open:hover,
+.portfolio-app .featured-card:hover .featured-cta {
+  background: var(--theme-text);
+  border-color: var(--theme-text);
+  color: var(--theme-background);
+}
+
+.portfolio-app .sidebar-nav a { border-left: 2px solid transparent; }
+
+.portfolio-app .sidebar-nav a.active {
+  background: rgba(255, 255, 255, .045);
+  border-left-color: var(--theme-action);
+  color: var(--theme-text);
+}
+
+.portfolio-app .sidebar-nav a.active svg { color: var(--theme-text); }
+
+@media (max-width: 1200px) {
+  .portfolio-app .dashboard-main::before {
+    height: 1000px;
+    animation: none;
+    transform: none;
+    will-change: auto;
+    opacity: .65;
+    background-position: center, 65% top;
+    background-size: cover, auto 100%;
+  }
+
+  .portfolio-app .featured-showcase::before { left: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-app .dashboard-main::before {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+}

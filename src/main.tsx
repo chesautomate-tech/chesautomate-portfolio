@@ -4,6 +4,7 @@ import './index.css';
 import './refinements.css';
 import './theme.css';
 import './presentation.css';
+import './smoke-refinement.css';
 
 const root = document.getElementById('root')!;
 const app = <App initialPath={root.dataset.prerenderPath || window.location.pathname} />;
