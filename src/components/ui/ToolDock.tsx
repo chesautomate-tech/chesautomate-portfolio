@@ -21,12 +21,12 @@ function swellAt(layout: Layout, index: number, pointerX: number) {
   return Math.max(0, 1 - Math.abs(pointerX - center) / layout.width / REACH) ** 2;
 }
 
-function useTouchOnlyDock() {
-  const [touchOnly, setTouchOnly] = useState(false);
+function useScrollableDock() {
+  const [scrollable, setScrollable] = useState(false);
 
   useEffect(() => {
-    const query = window.matchMedia('(any-hover: none)');
-    const update = () => setTouchOnly(query.matches);
+    const query = window.matchMedia('(any-hover: none), (max-width: 640px)');
+    const update = () => setScrollable(query.matches);
     update();
     if (typeof query.addEventListener === 'function') {
       query.addEventListener('change', update);
@@ -37,7 +37,7 @@ function useTouchOnlyDock() {
     return () => query.removeListener(update);
   }, []);
 
-  return touchOnly;
+  return scrollable;
 }
 
 function DockTile({ item, index, count, pointer, layout, still }: {
@@ -90,9 +90,9 @@ export function ToolDock({ items }: { items: ToolDockItem[] }) {
   const stage = useRef<HTMLDivElement>(null);
   const layout = useRef<Layout>({ centers: [], width: 0 });
   const pointer = useMotionValue(Number.POSITIVE_INFINITY);
-  const touchOnly = useTouchOnlyDock();
+  const scrollable = useScrollableDock();
   const reducedMotion = useReducedMotion();
-  const still = touchOnly || reducedMotion === true;
+  const still = scrollable || reducedMotion === true;
   const [active, setActive] = useState<number | null>(null);
   const [tooltipX, setTooltipX] = useState(0);
 
@@ -113,7 +113,7 @@ export function ToolDock({ items }: { items: ToolDockItem[] }) {
   }, [items.length]);
 
   const track = (clientX: number) => {
-    if (touchOnly || !stage.current || !layout.current.centers.length) return;
+    if (scrollable || !stage.current || !layout.current.centers.length) return;
     // Slot offsets and pointer coordinates both use the positioned stage as their origin.
     const x = clientX - stage.current.getBoundingClientRect().left;
     if (!still) pointer.set(x);
@@ -133,7 +133,7 @@ export function ToolDock({ items }: { items: ToolDockItem[] }) {
       <div
         ref={stage}
         className="supporting-tools-stage"
-        tabIndex={touchOnly ? 0 : undefined}
+        tabIndex={scrollable ? 0 : undefined}
         role="region"
         aria-label="Connected apps"
         onPointerMove={(event) => { if (event.pointerType !== 'touch') track(event.clientX); }}
