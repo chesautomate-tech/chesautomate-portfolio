@@ -1,54 +1,56 @@
-/* Chester's deep teal and warm copper palette. */
+/* Chester's Garnet Noir / Oyster Pearl / Royal Cobalt palette trial. */
 :root {
   color-scheme: dark;
-  --theme-depth: #005c6c;
-  --theme-depth-rgb: 0, 92, 108;
-  --theme-background: #0b181a;
-  --theme-sidebar-rgb: 7, 18, 20;
-  --theme-surface: #0d252a;
-  --theme-surface-raised: #102e34;
-  --theme-surface-hover: #18414a;
-  --theme-text: #f4f6f2;
-  --theme-muted: #b9c7c5;
-  --theme-subtle: #a0b3b0;
-  --theme-accent: #bd8859;
-  --theme-accent-rgb: 189, 136, 89;
-  --theme-accent-hover: #d4a477;
-  --theme-accent-soft: #ddbea1;
-  --theme-border: #35575c;
+  --theme-depth: #3b1219;
+  --theme-depth-rgb: 59, 18, 25;
+  --theme-background: #3b1219;
+  --theme-sidebar-rgb: 36, 11, 16;
+  --theme-surface: #481c24;
+  --theme-surface-raised: #562630;
+  --theme-surface-hover: #68333f;
+  --theme-text: #e9e3d8;
+  --theme-muted: #ccc0ba;
+  --theme-subtle: #bcaeaa;
+  /* A lighter cobalt tint keeps small links readable on garnet. */
+  --theme-accent: #9eacff;
+  --theme-accent-rgb: 36, 67, 255;
+  --theme-accent-hover: #425fff;
+  --theme-accent-soft: #e9e3d8;
+  --theme-action: #2443ff;
+  --theme-border: #735159;
 
   /* Shared UI components use HSL channels. */
-  --background: 188.00 40.54% 7.25%;
-  --foreground: 90.00 18.18% 95.69%;
-  --card: 190.34 52.73% 10.78%;
+  --background: 349.76 53.25% 15.10%;
+  --foreground: 38.82 27.87% 88.04%;
+  --card: 349.09 44.00% 19.61%;
   --card-foreground: var(--foreground);
   --popover: var(--card);
   --popover-foreground: var(--foreground);
-  --primary: 28.20 43.10% 54.51%;
-  --primary-foreground: var(--background);
-  --secondary: 190.00 52.94% 13.33%;
+  --primary: 231.51 100.00% 57.06%;
+  --primary-foreground: var(--foreground);
+  --secondary: 347.50 38.71% 24.31%;
   --secondary-foreground: var(--foreground);
   --muted: var(--secondary);
-  --muted-foreground: 171.43 11.11% 75.29%;
+  --muted-foreground: 20.00 15.00% 76.47%;
   --accent: var(--primary);
-  --accent-foreground: var(--background);
-  --border: 187.69 26.90% 28.43%;
+  --accent-foreground: var(--foreground);
+  --border: 345.88 17.35% 38.43%;
   --input: var(--border);
-  --ring: var(--primary);
+  --ring: 231.34 100.00% 80.98%;
   --emerald: var(--primary);
-  --emerald-light: 29.03 51.96% 64.90%;
-  --emerald-dark: 28 43% 45%;
-  --glass-bg: linear-gradient(140deg, #005c6c66, #0d252af2);
-  --glass-border: rgb(185 199 197 / 20%);
+  --emerald-light: 231.34 100.00% 80.98%;
+  --emerald-dark: var(--primary);
+  --glass-bg: linear-gradient(140deg, #481c2499, #3b1219f2);
+  --glass-border: rgb(233 227 216 / 20%);
   --glass-border-hover: rgb(var(--theme-accent-rgb), .5);
-  --sidebar-background: var(--background);
+  --sidebar-background: 348.00 53.19% 9.22%;
   --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: var(--background);
+  --sidebar-primary-foreground: var(--foreground);
   --sidebar-accent: var(--secondary);
   --sidebar-accent-foreground: var(--foreground);
   --sidebar-border: var(--border);
-  --sidebar-ring: var(--primary);
+  --sidebar-ring: var(--ring);
 }
 
 .portfolio-app {
@@ -56,35 +58,73 @@
   --paper: var(--theme-surface);
   --ink: var(--theme-text);
   --muted: var(--theme-muted);
-  --line: rgb(185 199 197 / 16%);
+  --line: rgb(233 227 216 / 16%);
   --emerald: var(--theme-accent);
   --emerald-dark: var(--theme-accent);
   --emerald-soft: rgba(var(--theme-accent-rgb), .12);
 }
 
-.portfolio-app .primary-action {
-  background: var(--theme-accent);
-  color: var(--theme-background);
+.portfolio-app .primary-action,
+.portfolio-app .featured-showcase-open,
+.portfolio-app .featured-cta {
+  background: var(--theme-action);
+  color: #e9e3d8;
 }
 
-.portfolio-app .primary-action:hover {
+.portfolio-app .primary-action:hover,
+.portfolio-app .featured-showcase-open:hover,
+.portfolio-app .featured-card:hover .featured-cta {
   background: var(--theme-accent-hover);
+  color: #fff;
 }
 
 ::selection {
-  background: var(--theme-accent);
-  color: var(--theme-background);
+  background: #2443ff;
+  color: #fff;
 }
 
-/* Teal supplies the atmospheric depth; copper marks the actions. */
-.portfolio-app .hero-proof {
-  background: linear-gradient(145deg, rgba(var(--theme-depth-rgb), .62), rgba(var(--theme-depth-rgb), .15));
+/* Pearl panels supply the secondary color without changing the layout. */
+.portfolio-app .hero-proof,
+.portfolio-app .featured-showcase {
+  --theme-text: #3b1219;
+  --theme-muted: #594841;
+  --theme-subtle: #594841;
+  --theme-accent: #2443ff;
+  --theme-surface-raised: #ded5c8;
+  --theme-surface-hover: #d4c9b9;
+  --ink: #3b1219;
+  --muted: #594841;
+  --emerald: #2443ff;
+  --emerald-dark: #2443ff;
+  --line: rgb(59 18 25 / 18%);
+  color: #3b1219;
+  border-color: rgb(233 227 216 / 55%);
+  background: #e9e3d8;
 }
 
 .portfolio-app .hero-proof .card-kicker {
-  color: var(--theme-accent-soft);
+  color: #3b1219;
 }
 
-.portfolio-app .featured-showcase {
-  background: radial-gradient(ellipse at bottom left, rgba(var(--theme-depth-rgb), .32), transparent 70%), var(--theme-surface);
+.portfolio-app .proof-stats,
+.portfolio-app .proof-stats div {
+  border-color: rgb(59 18 25 / 15%);
+}
+
+.portfolio-app .proof-stats strong {
+  color: #3b1219;
+}
+
+.portfolio-app .featured-value-tags span {
+  color: #3b1219;
+  background: rgb(59 18 25 / 6%);
+  border-color: rgb(59 18 25 / 15%);
+}
+
+.portfolio-app .featured-showcase-video .featured-video-external {
+  color: #e9e3d8;
+}
+
+.portfolio-app .featured-showcase-open:focus-visible {
+  outline-color: #3b1219;
 }
